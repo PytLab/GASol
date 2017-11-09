@@ -1,4 +1,6 @@
-cmake_minimum_required(VERSION 3.9)
+# CMake script to build GASol
+
+cmake_minimum_required(VERSION 2.8)
 
 project(GASol)
 
@@ -8,5 +10,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 # GASol source dir.
-add_subdirectory(src bin)
+add_subdirectory(src)
+
+# GASol test dir.
+add_subdirectory(test)
 
