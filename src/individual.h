@@ -20,12 +20,24 @@ namespace gasol {
          *  \param solution_candiate: A possible solution vector in the solution
          *                            space where genetic algorithm runs.
          *  \param ranges: The value ranges for all components in solution candidate vector.
-         *  \param precision: The discrete precisions for all components in solution 
-         *                    candidate vector
+         *  \param precisions: The discrete precisions for all components in solution 
+         *                     candidate vector
          */
         Individual(std::vector<double> & solution_candidate,
                    const std::vector<std::pair<double, double>> & ranges,
                    const std::vector<double> & precisions);
+
+        /*! \brief Another constructor for the genetic algorithm individual.
+         * 
+         *  \param solution_candiate: A possible solution vector in the solution
+         *                            space where genetic algorithm runs.
+         *  \param range: The value range for all components in solution candidate vector.
+         *  \param precision: The discrete precision for all components in solution 
+         *                    candidate vector
+         */
+        Individual(std::vector<double> & solution_candidate,
+                   const std::pair<double, double> & range,
+                   const double precision);
 
         /*! \brief Query function for solution candidate.
          */

@@ -14,5 +14,15 @@ namespace gasol {
         ranges_(ranges),
         precisions_(precisions)
     {}
+
+    //--------------------------------------------------------------------------
+    //
+    Individual::Individual(std::vector<double> & solution_candidate,
+                           const std::pair<double, double> & range,
+                           const double precision) :
+        solution_candidate_(solution_candidate),
+        ranges_(solution_candidate.size(), range),
+        precisions_(solution_candidate.size(), precision)
+    {}
 }
 
