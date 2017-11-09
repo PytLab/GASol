@@ -15,7 +15,7 @@ namespace gasol {
     class Individual {
 
     public:
-        /*! \ Constructor for the genetic algorithm individual.
+        /*! \brief Constructor for the genetic algorithm individual.
          * 
          *  \param solution_candiate: A possible solution vector in the solution
          *                            space where genetic algorithm runs.
@@ -26,6 +26,21 @@ namespace gasol {
         Individual(std::vector<double> & solution_candidate,
                    const std::vector<std::pair<double, double>> & ranges,
                    const std::vector<double> & precisions);
+
+        /*! \brief Query function for solution candidate.
+         */
+        const std::vector<double> & solutionCandidate() const
+        { return solution_candidate_; }
+
+        /*! \brief Query function for ranges.
+         */
+        const std::vector<std::pair<double, double>> & ranges() const
+        { return ranges_; }
+
+        /*! \brief Query function for discrete precisions.
+         */
+        const std::vector<double> & precisions() const
+        { return precisions_; }
 
     protected:
 
