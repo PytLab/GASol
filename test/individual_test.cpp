@@ -1,7 +1,7 @@
 /*! \brief File unittest for Individual class
  */
 
-#include "individual.hpp"
+#include "individual.h"
 #include "gtest/gtest.h"
 
 namespace {

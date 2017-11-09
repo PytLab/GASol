@@ -2,7 +2,7 @@
  *  \brief File for implementations of GAIndividual class.
  */
 
-#include "individual.hpp"
+#include "individual.h"
 
 namespace gasol {
     //--------------------------------------------------------------------------
