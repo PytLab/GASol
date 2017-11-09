@@ -6,7 +6,8 @@
 
 namespace {
 
-TEST(IndividualTest, Construction) {
+TEST(IndividualTest, ConstructionWithMultiVals)
+{
     // Construct an individual.
     std::vector<double> solution_candidate {1.0, 2.0};
     std::vector<std::pair<double, double>> ranges {{0.0, 2.0}, {1.0, 2.0}};
@@ -36,7 +37,45 @@ TEST(IndividualTest, Construction) {
     for (size_t i = 0; i < indv.precisions().size(); i++)
     {
         double ref_prec = precisions[i];
-        double ret_prec = precisions[i];
+        double ret_prec = indv.precisions()[i];
+        EXPECT_DOUBLE_EQ(ref_prec, ret_prec);
+    }
+}
+
+TEST(IndividualTest, ConstructionWithSingleVal)
+{
+    // Construct an individual.
+    std::vector<double> solution_candidate {1.0, 2.0};
+    std::vector<std::pair<double, double>> ref_ranges {{0.0, 2.0}, {0.0, 2.0}};
+    std::vector<double> ref_precisions {0.001, 0.001};
+    std::pair<double, double> range {0.0, 2.0};
+    double precision = 0.001;
+    gasol::Individual indv(solution_candidate, range, precision);
+
+    // Check solution candidate.
+    for (size_t i = 0; i < indv.solutionCandidate().size(); ++i)
+    {
+        double ref_component = solution_candidate[i];
+        double ret_component = indv.solutionCandidate()[i];
+        EXPECT_DOUBLE_EQ(ref_component, ret_component);
+    }
+
+    // Check ranges.
+    for (size_t i = 0; i < indv.ranges().size(); i++)
+    {
+        double ref_floor = ref_ranges[i].first;
+        double ref_ceiling = ref_ranges[i].second;
+        double ret_floor = indv.ranges()[i].first;
+        double ret_ceiling = indv.ranges()[i].second;
+        EXPECT_DOUBLE_EQ(ref_floor, ret_floor);
+        EXPECT_DOUBLE_EQ(ref_ceiling, ret_ceiling);
+    }
+
+    // Check precisions.
+    for (size_t i = 0; i < indv.precisions().size(); i++)
+    {
+        double ref_prec = ref_precisions[i];
+        double ret_prec = indv.precisions()[i];
         EXPECT_DOUBLE_EQ(ref_prec, ret_prec);
     }
 }
