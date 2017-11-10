@@ -10,6 +10,9 @@
 
 namespace gasol {
 
+    using RangePairs = std::vector<std::pair<double, double>>;
+    using GeneBreakPts = std::vector<std::pair<int, int>>;
+
     /*! \brief Class for defining an individual in genetic algorithm engine.
      */
     class Individual {
@@ -24,7 +27,7 @@ namespace gasol {
          *                     candidate vector
          */
         Individual(std::vector<double> & solution_candidate,
-                   const std::vector<std::pair<double, double>> & ranges,
+                   const RangePairs & ranges,
                    const std::vector<double> & precisions);
 
         /*! \brief Another constructor for the genetic algorithm individual.
@@ -46,7 +49,7 @@ namespace gasol {
 
         /*! \brief Query function for ranges.
          */
-        const std::vector<std::pair<double, double>> & ranges() const
+        const RangePairs & ranges() const
         { return ranges_; }
 
         /*! \brief Query function for discrete precisions.
@@ -60,9 +63,15 @@ namespace gasol {
         /// Solution candidate vector.
         std::vector<double> solution_candidate_;
         /// Ranges for all components in solution vector.
-        std::vector<std::pair<double, double>> ranges_;
-        /// Discrete precision.
+        RangePairs ranges_;
+        /// Original discrete precisions for all components in solution.
+        std::vector<double> ori_precisions_;
+        /// Actual dsicrete precisions used in GA engine.
         std::vector<double> precisions_;
+        /// Lengths of gene fragments.
+        std::vector<int> gene_lengths_;
+        /// The break points in gene sequence.
+        GeneBreakPts gene_break_pts_;
     };
 
 }
