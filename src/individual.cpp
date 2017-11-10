@@ -17,6 +17,27 @@ namespace gasol {
         ranges_(ranges),
         ori_precisions_(precisions)
     {
+        // Calculate lengths of all gene fragments.
+        calcGeneLengths();
+        // Get actual precisions which is used in GA engine.
+        adjustPrecisions();
+        // Create chromsome.
+    }
+
+    //--------------------------------------------------------------------------
+    //
+    Individual::Individual(std::vector<double> & solution_candidate,
+                           const std::pair<double, double> & range,
+                           const double precision) :
+        solution_candidate_(solution_candidate),
+        ranges_(solution_candidate.size(), range),
+        ori_precisions_(solution_candidate.size(), precision)
+    {}
+
+    //--------------------------------------------------------------------------
+    //
+    void Individual::calcGeneLengths()
+    {
         // Function to check an integer is the power of 2.
         auto power_of_2 = [](int n) { return !(n & (n - 1)); };
 
@@ -45,11 +66,15 @@ namespace gasol {
             int length = (int)(std::log2(n_info));
             gene_lengths_.push_back(length);
         }
+    }
 
-        // Calculate adjusted discrete precisions.
+    //--------------------------------------------------------------------------
+    //
+    void Individual::adjustPrecisions()
+    {
         if (precision_loss_)
         {
-            range_it = ranges_.cbegin();
+            auto range_it = ranges_.cbegin();
             auto len_it = gene_lengths_.cbegin();
 
             for (; range_it != ranges_.end() && len_it != gene_lengths_.end();
@@ -65,15 +90,5 @@ namespace gasol {
             precisions_ = ori_precisions_;
         }
     }
-
-    //--------------------------------------------------------------------------
-    //
-    Individual::Individual(std::vector<double> & solution_candidate,
-                           const std::pair<double, double> & range,
-                           const double precision) :
-        solution_candidate_(solution_candidate),
-        ranges_(solution_candidate.size(), range),
-        ori_precisions_(solution_candidate.size(), precision)
-    {}
 }
 

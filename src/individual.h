@@ -74,6 +74,15 @@ namespace gasol {
         { return precisions_; }
 
     protected:
+        /*! \brief Helper function to calculate gene fragment lengths for all
+         *         components in solution.
+         */
+        void calcGeneLengths();
+
+        /*! \brief Helper function to adjust discrete precisions according to
+         *         user-provided precisions and ranges.
+         */
+        void adjustPrecisions();
 
     private:
         /// Solution candidate vector.
