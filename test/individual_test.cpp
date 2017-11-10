@@ -10,12 +10,12 @@ TEST(IndividualTest, ConstructionWithMultiVals)
 {
     // Construct an individual.
     std::vector<double> solution_candidate {1.0, 2.0};
-    std::vector<std::pair<double, double>> ranges {{0.0, 2.0}, {1.0, 2.0}};
-    std::vector<double> precisions {0.001, 0.001};
+    std::vector<std::pair<double, double>> ranges {{0.0, 1.0}, {1.0, 2.0}};
+    std::vector<double> precisions {0.1, 0.2};
     gasol::Individual indv(solution_candidate, ranges, precisions);
 
     // Check solution candidate.
-    for (size_t i = 0; i < indv.solutionCandidate().size(); ++i)
+    for (size_t i = 0; i < solution_candidate.size(); ++i)
     {
         double ref_component = solution_candidate[i];
         double ret_component = indv.solutionCandidate()[i];
@@ -23,7 +23,7 @@ TEST(IndividualTest, ConstructionWithMultiVals)
     }
 
     // Check ranges.
-    for (size_t i = 0; i < indv.ranges().size(); i++)
+    for (size_t i = 0; i < ranges.size(); i++)
     {
         double ref_floor = ranges[i].first;
         double ref_ceiling = ranges[i].second;
@@ -33,12 +33,29 @@ TEST(IndividualTest, ConstructionWithMultiVals)
         EXPECT_DOUBLE_EQ(ref_ceiling, ret_ceiling);
     }
 
-    // Check precisions.
-    for (size_t i = 0; i < indv.precisions().size(); i++)
+    // Check original precisions.
+    for (size_t i = 0; i < precisions.size(); i++)
     {
         double ref_prec = precisions[i];
-        double ret_prec = indv.precisions()[i];
+        double ret_prec = indv.originalPrecisions()[i];
         EXPECT_DOUBLE_EQ(ref_prec, ret_prec);
+    }
+
+    // Check gene fragment lengths.
+    std::vector<int> ref_lengths = {3, 2};
+    for (size_t i = 0; i < ref_lengths.size(); i++)
+    {
+        EXPECT_EQ(ref_lengths[i], indv.geneLengths()[i]);
+    }
+
+    // Check precision loss.
+    EXPECT_TRUE(indv.precisionLoss());
+
+    // Check actual precisions.
+    std::vector<double> ref_precisions = {0.125, 0.25};
+    for (size_t i = 0; i < ref_precisions.size(); i++)
+    {
+        EXPECT_DOUBLE_EQ(ref_precisions[i], indv.precisions()[i]);
     }
 }
 
@@ -53,7 +70,7 @@ TEST(IndividualTest, ConstructionWithSingleVal)
     gasol::Individual indv(solution_candidate, range, precision);
 
     // Check solution candidate.
-    for (size_t i = 0; i < indv.solutionCandidate().size(); ++i)
+    for (size_t i = 0; i < solution_candidate.size(); ++i)
     {
         double ref_component = solution_candidate[i];
         double ret_component = indv.solutionCandidate()[i];
@@ -61,7 +78,7 @@ TEST(IndividualTest, ConstructionWithSingleVal)
     }
 
     // Check ranges.
-    for (size_t i = 0; i < indv.ranges().size(); i++)
+    for (size_t i = 0; i < ref_ranges.size(); i++)
     {
         double ref_floor = ref_ranges[i].first;
         double ref_ceiling = ref_ranges[i].second;
@@ -72,10 +89,10 @@ TEST(IndividualTest, ConstructionWithSingleVal)
     }
 
     // Check precisions.
-    for (size_t i = 0; i < indv.precisions().size(); i++)
+    for (size_t i = 0; i < ref_precisions.size(); i++)
     {
         double ref_prec = ref_precisions[i];
-        double ret_prec = indv.precisions()[i];
+        double ret_prec = indv.originalPrecisions()[i];
         EXPECT_DOUBLE_EQ(ref_prec, ret_prec);
     }
 }

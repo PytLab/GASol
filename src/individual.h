@@ -10,6 +10,7 @@
 
 namespace gasol {
 
+    // Type alias.
     using RangePairs = std::vector<std::pair<double, double>>;
     using GeneBreakPts = std::vector<std::pair<int, int>>;
 
@@ -52,6 +53,21 @@ namespace gasol {
         const RangePairs & ranges() const
         { return ranges_; }
 
+        /*! \brief Query function for original discrete precisions.
+         */
+        const std::vector<double> & originalPrecisions() const
+        { return ori_precisions_; }
+
+        /*! \brief Query function for precision loss flag.
+         */
+        bool precisionLoss() const
+        { return precision_loss_; }
+
+        /*! \brief Query function for gene lengths.
+         */
+        const std::vector<int> & geneLengths() const
+        { return gene_lengths_; }
+
         /*! \brief Query function for discrete precisions.
          */
         const std::vector<double> & precisions() const
@@ -72,6 +88,10 @@ namespace gasol {
         std::vector<int> gene_lengths_;
         /// The break points in gene sequence.
         GeneBreakPts gene_break_pts_;
+        /// The chromsome contains gene sequence.
+        std::vector<bool> chromsome_;
+        /// Flag for precision loss.
+        bool precision_loss_ = false;
     };
 
 }
