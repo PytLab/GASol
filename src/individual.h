@@ -74,19 +74,6 @@ namespace gasol {
         { return precisions_; }
 
     protected:
-        /*! \brief Helper function to calculate gene fragment lengths for all
-         *         components in solution.
-         */
-        void _calcGeneLengths();
-
-        /*! \brief Helper function to adjust discrete precisions according to
-         *         user-provided precisions and ranges.
-         */
-        void _adjustPrecisions();
-
-        /*! \brief Helper function to create chromsome.
-         */
-        void _createChromsome();
 
     private:
         /// Solution candidate vector.
@@ -105,6 +92,22 @@ namespace gasol {
         std::vector<bool> chromsome_;
         /// Flag for precision loss.
         bool precision_loss_ = false;
+
+        /* Private functions */
+
+        /*! \brief Helper function to calculate gene fragment lengths for all
+         *         components in solution.
+         */
+        void _calcGeneLengths();
+
+        /*! \brief Helper function to adjust discrete precisions according to
+         *         user-provided precisions and ranges.
+         */
+        void _adjustPrecisions();
+
+        /*! \brief Helper function to create chromsome.
+         */
+        void _createChromsome();
     };
 
 }
