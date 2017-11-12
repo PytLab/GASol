@@ -77,12 +77,16 @@ namespace gasol {
         /*! \brief Helper function to calculate gene fragment lengths for all
          *         components in solution.
          */
-        void calcGeneLengths();
+        void _calcGeneLengths();
 
         /*! \brief Helper function to adjust discrete precisions according to
          *         user-provided precisions and ranges.
          */
-        void adjustPrecisions();
+        void _adjustPrecisions();
+
+        /*! \brief Helper function to create chromsome.
+         */
+        void _createChromsome();
 
     private:
         /// Solution candidate vector.

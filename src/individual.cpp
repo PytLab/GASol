@@ -18,9 +18,9 @@ namespace gasol {
         ori_precisions_(precisions)
     {
         // Calculate lengths of all gene fragments.
-        calcGeneLengths();
+        _calcGeneLengths();
         // Get actual precisions which is used in GA engine.
-        adjustPrecisions();
+        _adjustPrecisions();
         // Create chromsome.
     }
 
@@ -36,7 +36,7 @@ namespace gasol {
 
     //--------------------------------------------------------------------------
     //
-    void Individual::calcGeneLengths()
+    void Individual::_calcGeneLengths()
     {
         // Function to check an integer is the power of 2.
         auto power_of_2 = [](int n) { return !(n & (n - 1)); };
@@ -70,7 +70,7 @@ namespace gasol {
 
     //--------------------------------------------------------------------------
     //
-    void Individual::adjustPrecisions()
+    void Individual::_adjustPrecisions()
     {
         if (precision_loss_)
         {
@@ -89,6 +89,12 @@ namespace gasol {
         {
             precisions_ = ori_precisions_;
         }
+    }
+
+    //--------------------------------------------------------------------------
+    //
+    void Individual::_createChromsome()
+    {
     }
 }
 
