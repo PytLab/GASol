@@ -13,7 +13,8 @@ namespace gasol {
     Individual::Individual(std::vector<double> & solution_candidate,
                            const RangePairs & ranges,
                            const std::vector<double> & precisions) :
-        solution_candidate_(solution_candidate),
+        ori_solution_candidate_(solution_candidate),
+        solution_candidate_(solution_candidate.size(), 0.0),
         ranges_(ranges),
         ori_precisions_(precisions)
     {
@@ -23,6 +24,8 @@ namespace gasol {
         _adjustPrecisions();
         // Create chromsome.
         _createChromsome();
+        // Update solution candiate.
+        _updateSolutionCandidate();
     }
 
     //--------------------------------------------------------------------------
@@ -30,7 +33,8 @@ namespace gasol {
     Individual::Individual(std::vector<double> & solution_candidate,
                            const std::pair<double, double> & range,
                            const double precision) :
-        solution_candidate_(solution_candidate),
+        ori_solution_candidate_(solution_candidate),
+        solution_candidate_(solution_candidate.size(), 0.0),
         ranges_(solution_candidate.size(), range),
         ori_precisions_(solution_candidate.size(), precision)
     {}
@@ -105,10 +109,10 @@ namespace gasol {
     //
     void Individual::_createChromsome()
     {
-        for (size_t i = 0; i < solution_candidate_.size(); i++)
+        for (size_t i = 0; i < ori_solution_candidate_.size(); i++)
         {
             // Get gene fragment.
-            double decimal = solution_candidate_[i];
+            double decimal = ori_solution_candidate_[i];
             double floor = ranges_[i].first;
             double precision = precisions_[i];
             int length = gene_lengths_[i];
@@ -150,10 +154,38 @@ namespace gasol {
         int ncount = 0;
         for (int i = 0; i < length; i++)
         {
-            ncount += pow(2, int(binary[i]));
+            int idx =  length - i - 1;
+            ncount += int(binary[idx])*std::pow(2, i);
         }
 
-        return floor + precision*ncount;
+        return floor + precision*(ncount + 1);
+    }
+
+    //--------------------------------------------------------------------------
+    //
+    void Individual::_updateSolutionCandidate()
+    {
+        for (size_t i = 0; i < solution_candidate_.size(); i++)
+        {
+            // Get gene fragment.
+            int start = gene_break_pts_[i].first;
+            int end = gene_break_pts_[i].second;
+            std::vector<bool> gene_fragment;
+            for (int j = start; j <= end; j++)
+            {
+                gene_fragment.push_back(chromsome_[j]);
+            }
+
+            // Convert to decimal number.
+            double floor = ranges_[i].first;
+            double precision = precisions_[i];
+            int length = gene_lengths_[i];
+
+            double component = _binToDec(gene_fragment, floor, precision, length);
+
+            // Update.
+            solution_candidate_[i] = component;
+        }
     }
 }
 

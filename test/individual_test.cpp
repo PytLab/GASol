@@ -18,7 +18,7 @@ TEST(IndividualTest, ConstructionWithMultiVals)
     for (size_t i = 0; i < solution_candidate.size(); ++i)
     {
         double ref_component = solution_candidate[i];
-        double ret_component = indv.solutionCandidate()[i];
+        double ret_component = indv.oriSolutionCandidate()[i];
         EXPECT_DOUBLE_EQ(ref_component, ret_component);
     }
 
@@ -72,6 +72,13 @@ TEST(IndividualTest, ConstructionWithMultiVals)
         EXPECT_EQ(ref_break_pts[i].first, indv.geneBreakPts()[i].first);
         EXPECT_EQ(ref_break_pts[i].second, indv.geneBreakPts()[i].second);
     }
+
+    // Check adjusted solution vector.
+    std::vector<double> ref_solution_candidate {1.0, 1.75};
+    for (size_t i = 0; i < ref_solution_candidate.size(); i++)
+    {
+        EXPECT_DOUBLE_EQ(ref_solution_candidate[i], indv.solutionCandidate()[i]);
+    }
 }
 
 TEST(IndividualTest, ConstructionWithSingleVal)
@@ -88,7 +95,7 @@ TEST(IndividualTest, ConstructionWithSingleVal)
     for (size_t i = 0; i < solution_candidate.size(); ++i)
     {
         double ref_component = solution_candidate[i];
-        double ret_component = indv.solutionCandidate()[i];
+        double ret_component = indv.oriSolutionCandidate()[i];
         EXPECT_DOUBLE_EQ(ref_component, ret_component);
     }
 

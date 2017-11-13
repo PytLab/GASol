@@ -43,10 +43,18 @@ namespace gasol {
                    const std::pair<double, double> & range,
                    const double precision);
 
+        /*! \brief Query function for original solution candidate.
+         */
+        const std::vector<double> & oriSolutionCandidate() const
+        { return ori_solution_candidate_; }
+
         /*! \brief Query function for solution candidate.
          */
-        const std::vector<double> & solutionCandidate() const
-        { return solution_candidate_; }
+        const std::vector<double> & solutionCandidate()
+        {
+            _updateSolutionCandidate();
+            return solution_candidate_;
+        }
 
         /*! \brief Query function for ranges.
          */
@@ -86,6 +94,8 @@ namespace gasol {
     protected:
 
     private:
+        /// Original solution candidate provided by user.
+        std::vector<double> ori_solution_candidate_;
         /// Solution candidate vector.
         std::vector<double> solution_candidate_;
         /// Ranges for all components in solution vector.
@@ -120,6 +130,10 @@ namespace gasol {
         /*! \brief Helper function to create chromsome.
          */
         void _createChromsome();
+
+        /*! \brief Helper funciton to update solution vector according to chromsome.
+         */
+        void _updateSolutionCandidate();
 
         /*! \brief Function to convert a decimal number to binary one.
          *  \param decimal: The decimal number to be converted.
