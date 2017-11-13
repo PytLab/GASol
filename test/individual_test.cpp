@@ -9,7 +9,7 @@ namespace {
 TEST(IndividualTest, ConstructionWithMultiVals)
 {
     // Construct an individual.
-    std::vector<double> solution_candidate {1.0, 2.0};
+    std::vector<double> solution_candidate {1.0, 1.75};
     std::vector<std::pair<double, double>> ranges {{0.0, 1.0}, {1.0, 2.0}};
     std::vector<double> precisions {0.1, 0.2};
     gasol::Individual indv(solution_candidate, ranges, precisions);
@@ -56,6 +56,13 @@ TEST(IndividualTest, ConstructionWithMultiVals)
     for (size_t i = 0; i < ref_precisions.size(); i++)
     {
         EXPECT_DOUBLE_EQ(ref_precisions[i], indv.precisions()[i]);
+    }
+
+    // Check chromsome.
+    std::vector<bool> ref_chromsome {1, 1, 1, 1, 0};
+    for (size_t i = 0; i < ref_chromsome.size(); i++)
+    {
+        EXPECT_EQ(ref_chromsome[i], indv.chromsome()[i]);
     }
 }
 
