@@ -33,10 +33,9 @@ namespace gasol {
     Individual::Individual(std::vector<double> & solution,
                            const std::pair<double, double> & range,
                            const double precision) :
-        ori_solution_(solution),
-        solution_(solution.size(), 0.0),
-        ranges_(solution.size(), range),
-        ori_precisions_(solution.size(), precision)
+        Individual(solution,
+                   RangePairs(solution.size(), range),
+                   std::vector<double>(solution.size(), precision))
     {}
 
     //--------------------------------------------------------------------------
