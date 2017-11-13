@@ -9,16 +9,16 @@ namespace {
 TEST(IndividualTest, ConstructionWithMultiVals)
 {
     // Construct an individual.
-    std::vector<double> solution_candidate {1.0, 1.75};
+    std::vector<double> solution {1.0, 1.75};
     std::vector<std::pair<double, double>> ranges {{0.0, 1.0}, {1.0, 2.0}};
     std::vector<double> precisions {0.1, 0.2};
-    gasol::Individual indv(solution_candidate, ranges, precisions);
+    gasol::Individual indv(solution, ranges, precisions);
 
     // Check solution candidate.
-    for (size_t i = 0; i < solution_candidate.size(); ++i)
+    for (size_t i = 0; i < solution.size(); ++i)
     {
-        double ref_component = solution_candidate[i];
-        double ret_component = indv.oriSolutionCandidate()[i];
+        double ref_component = solution[i];
+        double ret_component = indv.oriSolution()[i];
         EXPECT_DOUBLE_EQ(ref_component, ret_component);
     }
 
@@ -74,28 +74,28 @@ TEST(IndividualTest, ConstructionWithMultiVals)
     }
 
     // Check adjusted solution vector.
-    std::vector<double> ref_solution_candidate {1.0, 1.75};
-    for (size_t i = 0; i < ref_solution_candidate.size(); i++)
+    std::vector<double> ref_solution {1.0, 1.75};
+    for (size_t i = 0; i < ref_solution.size(); i++)
     {
-        EXPECT_DOUBLE_EQ(ref_solution_candidate[i], indv.solutionCandidate()[i]);
+        EXPECT_DOUBLE_EQ(ref_solution[i], indv.solution()[i]);
     }
 }
 
 TEST(IndividualTest, ConstructionWithSingleVal)
 {
     // Construct an individual.
-    std::vector<double> solution_candidate {1.0, 2.0};
+    std::vector<double> solution {1.0, 2.0};
     std::vector<std::pair<double, double>> ref_ranges {{0.0, 2.0}, {0.0, 2.0}};
     std::vector<double> ref_precisions {0.001, 0.001};
     std::pair<double, double> range {0.0, 2.0};
     double precision = 0.001;
-    gasol::Individual indv(solution_candidate, range, precision);
+    gasol::Individual indv(solution, range, precision);
 
     // Check solution candidate.
-    for (size_t i = 0; i < solution_candidate.size(); ++i)
+    for (size_t i = 0; i < solution.size(); ++i)
     {
-        double ref_component = solution_candidate[i];
-        double ret_component = indv.oriSolutionCandidate()[i];
+        double ref_component = solution[i];
+        double ret_component = indv.oriSolution()[i];
         EXPECT_DOUBLE_EQ(ref_component, ret_component);
     }
 

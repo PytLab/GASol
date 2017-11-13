@@ -10,11 +10,11 @@
 namespace gasol {
     //--------------------------------------------------------------------------
     //
-    Individual::Individual(std::vector<double> & solution_candidate,
+    Individual::Individual(std::vector<double> & solution,
                            const RangePairs & ranges,
                            const std::vector<double> & precisions) :
-        ori_solution_candidate_(solution_candidate),
-        solution_candidate_(solution_candidate.size(), 0.0),
+        ori_solution_(solution),
+        solution_(solution.size(), 0.0),
         ranges_(ranges),
         ori_precisions_(precisions)
     {
@@ -25,18 +25,18 @@ namespace gasol {
         // Create chromsome.
         _createChromsome();
         // Update solution candiate.
-        _updateSolutionCandidate();
+        _updateSolution();
     }
 
     //--------------------------------------------------------------------------
     //
-    Individual::Individual(std::vector<double> & solution_candidate,
+    Individual::Individual(std::vector<double> & solution,
                            const std::pair<double, double> & range,
                            const double precision) :
-        ori_solution_candidate_(solution_candidate),
-        solution_candidate_(solution_candidate.size(), 0.0),
-        ranges_(solution_candidate.size(), range),
-        ori_precisions_(solution_candidate.size(), precision)
+        ori_solution_(solution),
+        solution_(solution.size(), 0.0),
+        ranges_(solution.size(), range),
+        ori_precisions_(solution.size(), precision)
     {}
 
     //--------------------------------------------------------------------------
@@ -109,10 +109,10 @@ namespace gasol {
     //
     void Individual::_createChromsome()
     {
-        for (size_t i = 0; i < ori_solution_candidate_.size(); i++)
+        for (size_t i = 0; i < ori_solution_.size(); i++)
         {
             // Get gene fragment.
-            double decimal = ori_solution_candidate_[i];
+            double decimal = ori_solution_[i];
             double floor = ranges_[i].first;
             double precision = precisions_[i];
             int length = gene_lengths_[i];
@@ -163,9 +163,9 @@ namespace gasol {
 
     //--------------------------------------------------------------------------
     //
-    void Individual::_updateSolutionCandidate()
+    void Individual::_updateSolution()
     {
-        for (size_t i = 0; i < solution_candidate_.size(); i++)
+        for (size_t i = 0; i < solution_.size(); i++)
         {
             // Get gene fragment.
             int start = gene_break_pts_[i].first;
@@ -184,7 +184,7 @@ namespace gasol {
             double component = _binToDec(gene_fragment, floor, precision, length);
 
             // Update.
-            solution_candidate_[i] = component;
+            solution_[i] = component;
         }
     }
 }

@@ -21,39 +21,39 @@ namespace gasol {
     public:
         /*! \brief Constructor for the genetic algorithm individual.
          * 
-         *  \param solution_candiate: A possible solution vector in the solution
-         *                            space where genetic algorithm runs.
+         *  \param solution: A possible solution vector in the solution space
+         *                   where genetic algorithm runs.
          *  \param ranges: The value ranges for all components in solution candidate vector.
          *  \param precisions: The discrete precisions for all components in solution
          *                     candidate vector
          */
-        Individual(std::vector<double> & solution_candidate,
+        Individual(std::vector<double> & solution,
                    const RangePairs & ranges,
                    const std::vector<double> & precisions);
 
         /*! \brief Another constructor for the genetic algorithm individual.
          * 
-         *  \param solution_candiate: A possible solution vector in the solution
-         *                            space where genetic algorithm runs.
+         *  \param solution: A possible solution vector in the solution space
+         *                   where genetic algorithm runs.
          *  \param range: The value range for all components in solution candidate vector.
          *  \param precision: The discrete precision for all components in solution
          *                    candidate vector
          */
-        Individual(std::vector<double> & solution_candidate,
+        Individual(std::vector<double> & solution,
                    const std::pair<double, double> & range,
                    const double precision);
 
         /*! \brief Query function for original solution candidate.
          */
-        const std::vector<double> & oriSolutionCandidate() const
-        { return ori_solution_candidate_; }
+        const std::vector<double> & oriSolution() const
+        { return ori_solution_; }
 
         /*! \brief Query function for solution candidate.
          */
-        const std::vector<double> & solutionCandidate()
+        const std::vector<double> & solution()
         {
-            _updateSolutionCandidate();
-            return solution_candidate_;
+            _updateSolution();
+            return solution_;
         }
 
         /*! \brief Query function for ranges.
@@ -95,9 +95,9 @@ namespace gasol {
 
     private:
         /// Original solution candidate provided by user.
-        std::vector<double> ori_solution_candidate_;
+        std::vector<double> ori_solution_;
         /// Solution candidate vector.
-        std::vector<double> solution_candidate_;
+        std::vector<double> solution_;
         /// Ranges for all components in solution vector.
         RangePairs ranges_;
         /// Original discrete precisions for all components in solution.
@@ -133,7 +133,7 @@ namespace gasol {
 
         /*! \brief Helper funciton to update solution vector according to chromsome.
          */
-        void _updateSolutionCandidate();
+        void _updateSolution();
 
         /*! \brief Function to convert a decimal number to binary one.
          *  \param decimal: The decimal number to be converted.
