@@ -64,6 +64,14 @@ TEST(IndividualTest, ConstructionWithMultiVals)
     {
         EXPECT_EQ(ref_chromsome[i], indv.chromsome()[i]);
     }
+
+    // Check gene fragment break points.
+    gasol::GeneBreakPts ref_break_pts = {{0, 2}, {3, 4}};
+    for (size_t i = 0; i < ref_break_pts.size(); i++)
+    {
+        EXPECT_EQ(ref_break_pts[i].first, indv.geneBreakPts()[i].first);
+        EXPECT_EQ(ref_break_pts[i].second, indv.geneBreakPts()[i].second);
+    }
 }
 
 TEST(IndividualTest, ConstructionWithSingleVal)

@@ -46,6 +46,9 @@ namespace gasol {
         auto range_it = ranges_.cbegin();
         auto prec_it = ori_precisions_.cbegin();
 
+        // Gene fragment index cursor.
+        int cursor = 0;
+
         for (; range_it != ranges_.end() && prec_it != ori_precisions_.end();
                 range_it++, prec_it++)
         {
@@ -66,6 +69,12 @@ namespace gasol {
 
             int length = (int)(std::log2(n_info));
             gene_lengths_.push_back(length);
+
+            // Get gene fragment break points.
+            int start = cursor;
+            int end = cursor + length - 1;
+            cursor += length;
+            gene_break_pts_.push_back(std::pair<int, int>(start, end));
         }
     }
 

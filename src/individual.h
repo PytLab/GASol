@@ -68,6 +68,11 @@ namespace gasol {
         const std::vector<int> & geneLengths() const
         { return gene_lengths_; }
 
+        /*! \brief Query function for gene fragment break points.
+         */
+        const GeneBreakPts & geneBreakPts() const
+        { return gene_break_pts_; }
+
         /*! \brief Query function for discrete precisions.
          */
         const std::vector<double> & precisions() const
