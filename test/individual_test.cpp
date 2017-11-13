@@ -8,6 +8,7 @@ namespace {
 
 TEST(IndividualTest, ConstructionWithMultiVals)
 {
+    // {{{
     // Construct an individual.
     std::vector<double> solution {1.0, 1.75};
     std::vector<std::pair<double, double>> ranges {{0.0, 1.0}, {1.0, 2.0}};
@@ -79,10 +80,12 @@ TEST(IndividualTest, ConstructionWithMultiVals)
     {
         EXPECT_DOUBLE_EQ(ref_solution[i], indv.solution()[i]);
     }
+    // }}}
 }
 
 TEST(IndividualTest, ConstructionWithSingleVal)
 {
+    // {{{
     // Construct an individual.
     std::vector<double> solution {1.0, 2.0};
     std::vector<std::pair<double, double>> ref_ranges {{0.0, 2.0}, {0.0, 2.0}};
@@ -117,6 +120,7 @@ TEST(IndividualTest, ConstructionWithSingleVal)
         double ret_prec = indv.originalPrecisions()[i];
         EXPECT_DOUBLE_EQ(ref_prec, ret_prec);
     }
+    // }}}
 }
 
 } // namespace
