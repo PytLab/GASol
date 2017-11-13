@@ -24,7 +24,7 @@ namespace gasol {
          *  \param solution_candiate: A possible solution vector in the solution
          *                            space where genetic algorithm runs.
          *  \param ranges: The value ranges for all components in solution candidate vector.
-         *  \param precisions: The discrete precisions for all components in solution 
+         *  \param precisions: The discrete precisions for all components in solution
          *                     candidate vector
          */
         Individual(std::vector<double> & solution_candidate,
@@ -36,7 +36,7 @@ namespace gasol {
          *  \param solution_candiate: A possible solution vector in the solution
          *                            space where genetic algorithm runs.
          *  \param range: The value range for all components in solution candidate vector.
-         *  \param precision: The discrete precision for all components in solution 
+         *  \param precision: The discrete precision for all components in solution
          *                    candidate vector
          */
         Individual(std::vector<double> & solution_candidate,
@@ -73,6 +73,11 @@ namespace gasol {
         const std::vector<double> & precisions() const
         { return precisions_; }
 
+        /*! \brief Query function for chromsome sequence.
+         */
+        const std::vector<bool> & chromsome() const
+        { return chromsome_; }
+
     protected:
 
     private:
@@ -93,7 +98,9 @@ namespace gasol {
         /// Flag for precision loss.
         bool precision_loss_ = false;
 
-        /* Private functions */
+        // ---------------------------------------------------------------------
+        // Private functions
+        // ---------------------------------------------------------------------
 
         /*! \brief Helper function to calculate gene fragment lengths for all
          *         components in solution.
@@ -108,6 +115,28 @@ namespace gasol {
         /*! \brief Helper function to create chromsome.
          */
         void _createChromsome();
+
+        /*! \brief Function to convert a decimal number to binary one.
+         *  \param decimal: The decimal number to be converted.
+         *  \param floor: The floor of this decimal number. 
+         *  \param precision: Precision for this component.
+         *  \param length: The length of the gene fragement.
+         */
+        std::vector<bool> _decToBin(double decimal,
+                                    double floor,
+                                    double precision,
+                                    int length) const;
+
+        /*! \brief Function to convert a binary number to decimal number.
+         *  \param binary: The binary number to be converted.
+         *  \param floor: The floor of this component. 
+         *  \param precision: Precision for this component.
+         *  \param length: The length of the gene fragement.
+         */
+        double _binToDec(const std::vector<bool> & binary,
+                         double floor,
+                         double precision,
+                         int length) const;
     };
 
 }

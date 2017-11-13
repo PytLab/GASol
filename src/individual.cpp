@@ -22,6 +22,7 @@ namespace gasol {
         // Get actual precisions which is used in GA engine.
         _adjustPrecisions();
         // Create chromsome.
+        _createChromsome();
     }
 
     //--------------------------------------------------------------------------
@@ -95,6 +96,55 @@ namespace gasol {
     //
     void Individual::_createChromsome()
     {
+        for (size_t i = 0; i < solution_candidate_.size(); i++)
+        {
+            // Get gene fragment.
+            double decimal = solution_candidate_[i];
+            double floor = ranges_[i].first;
+            double precision = precisions_[i];
+            int length = gene_lengths_[i];
+            std::vector<bool> && gene_fragment = _decToBin(decimal, floor, precision, length);
+
+            // Append new gene fragment to chromsome.
+            chromsome_.reserve(chromsome_.size() + gene_fragment.size());
+            chromsome_.insert(chromsome_.end(),
+                              gene_fragment.begin(),
+                              gene_fragment.end());
+        }
+    }
+
+    //--------------------------------------------------------------------------
+    //
+    std::vector<bool> Individual::_decToBin(double decimal,
+                                            double floor,
+                                            double precision,
+                                            int length) const
+    {
+        std::vector<bool> binary;
+
+        int ncount = (decimal - floor)/precision - 1;
+        for (int i = length-1; i >= 0; i--)
+        {
+            binary.push_back( (ncount >> i) & 1 );
+        }
+
+        return binary;
+    }
+
+    //--------------------------------------------------------------------------
+    //
+    double Individual::_binToDec(const std::vector<bool> & binary,
+                                 double floor,
+                                 double precision,
+                                 int length) const
+    {
+        int ncount = 0;
+        for (int i = 0; i < length; i++)
+        {
+            ncount += pow(2, int(binary[i]));
+        }
+
+        return floor + precision*ncount;
     }
 }
 
