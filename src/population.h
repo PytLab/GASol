@@ -13,6 +13,9 @@ namespace gasol {
     // Forward declaration.
     class Individual;
 
+    // Type alias of a fitness function.
+    using Fitness = double (Individual &);
+
     /*! \brief Class for population iterated in genetic algorithm engine.
      */
     class Population {
@@ -20,11 +23,19 @@ namespace gasol {
     public:
         /*! \brief Constructor for population with multiple individuals.
          */
-        Population(const std::vector<Individual> & individuals);
+        Population(const std::vector<Individual> & individuals, Fitness *pfit);
+
+        /*! \brief Return reference of the individual with max fitness value.
+         */
+        const Individual & bestIndv() const;
 
         /*! \brief Query function for population size.
          */
         int size() const { return size_; }
+
+        /*! \brief Query function for fitness function.
+         */
+        Fitness *fitness() const { return pfit_; }
 
         /*! \brief Const query function for individual pointers.
          */
@@ -42,8 +53,14 @@ namespace gasol {
         /// Pointers pointing to all individuals.
         std::vector<Individual *> indv_ptrs_;
 
+        /// Fitness function pointer.
+        Fitness *pfit_ = nullptr;
+
         /// Population size.
         size_t size_;
+
+        /// Pointer of best individual.
+        const Individual *best_indv_ = nullptr;
     };
 }
 

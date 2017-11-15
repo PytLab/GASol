@@ -5,12 +5,15 @@
 #include "population.h"
 #include "individual.h"
 
+#include <algorithm>
+
 namespace gasol {
 
     //--------------------------------------------------------------------------
     //
-    Population::Population(const std::vector<Individual> & individuals) :
+    Population::Population(const std::vector<Individual> & individuals, Fitness *pfit) :
         indvs_(individuals),
+        pfit_(pfit),
         size_(indvs_.size())
     {
         // Initialize individual pointers.
@@ -19,6 +22,19 @@ namespace gasol {
             indv_ptrs_.push_back(&indv);
         }
     }
+
+    //--------------------------------------------------------------------------
+    //
+    /*
+    const Individual & Population::bestIndv() const
+    {
+        // Comparation function.
+        auto comp = [this](Individual *indv_ptr1, Individual *indv_ptr2)
+                    { return (*pfit_)(*indv_ptr1) < (*pfit_)(*indv_ptr2); };
+
+        auto best = std::max_element(indv_ptrs_.begin(), indv_ptrs_.end(), comp);
+    }
+    */
 
 }  // namespace gasol
 

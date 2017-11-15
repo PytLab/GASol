@@ -4,7 +4,11 @@
 #include "individual.h"
 #include "gtest/gtest.h"
 
+
 namespace {
+
+double fitness(gasol::Individual & indv)
+{ return indv.solution()[0]*indv.solution()[1]; }
 
 class PopulationTest : public ::testing::Test {
 
@@ -25,12 +29,15 @@ protected:
 
     std::vector<double> solution3_ {0.5, 2.0};
     gasol::Individual indv3_ = gasol::Individual(solution3_, ranges_, precisions_);
+
+    // Fitness function pointer.
+    gasol::Fitness *pfit_ = &fitness;
 };
 
 TEST_F(PopulationTest, Construction)
 {
     std::vector<gasol::Individual> indvs {indv1_, indv2_, indv3_};
-    gasol::Population population(indvs);
+    gasol::Population population(indvs, pfit_);
 
     // Check size.
     EXPECT_EQ(population.size(), 3);
@@ -42,6 +49,9 @@ TEST_F(PopulationTest, Construction)
     {
         EXPECT_EQ(ref_chromsome[i], indv_ptr->chromsome()[i]);
     }
+
+    // Check fitness function.
+    EXPECT_DOUBLE_EQ(population.fitness()(indv3_), 1.0);
 }
 
 } // namespace
