@@ -1,4 +1,4 @@
-/*! \file  individual.hpp
+/*! \file  individual.h
  *  \brief File for the GAIndividual class definition
  */
 

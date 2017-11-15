@@ -186,5 +186,5 @@ namespace gasol {
             solution_[i] = component;
         }
     }
-}
+}  // namespace gasol
 
