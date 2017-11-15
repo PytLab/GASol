@@ -55,11 +55,7 @@ namespace gasol {
 
         /*! \brief Query function for solution candidate.
          */
-        const std::vector<double> & solution()
-        {
-            _updateSolution();
-            return solution_;
-        }
+        const std::vector<double> & solution() const { return solution_; }
 
         /*! \brief Query function for ranges.
          */
