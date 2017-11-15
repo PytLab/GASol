@@ -6,28 +6,42 @@
 
 namespace {
 
-TEST(IndividualTest, ConstructionWithMultiVals)
+class IndividualTest : public ::testing::Test {
+protected:
+    virtual void SetUp()
+    {
+        solution_ = {1.0, 1.75};
+        ranges_ = {{0.0, 1.0}, {1.0, 2.0}};
+        precisions_ = {0.1, 0.2};
+    }
+
+    virtual void TearDown() {}
+
+    // Data used in fixture.
+    std::vector<double> solution_;
+    gasol::RangePairs ranges_;
+    std::vector<double> precisions_;
+};
+
+TEST_F(IndividualTest, ConstructionWithMultiVals)
 {
     // {{{
     // Construct an individual.
-    std::vector<double> solution {1.0, 1.75};
-    std::vector<std::pair<double, double>> ranges {{0.0, 1.0}, {1.0, 2.0}};
-    std::vector<double> precisions {0.1, 0.2};
-    gasol::Individual indv(solution, ranges, precisions);
+    gasol::Individual indv(solution_, ranges_, precisions_);
 
     // Check solution candidate.
-    for (size_t i = 0; i < solution.size(); ++i)
+    for (size_t i = 0; i < solution_.size(); ++i)
     {
-        double ref_component = solution[i];
+        double ref_component = solution_[i];
         double ret_component = indv.oriSolution()[i];
         EXPECT_DOUBLE_EQ(ref_component, ret_component);
     }
 
     // Check ranges.
-    for (size_t i = 0; i < ranges.size(); i++)
+    for (size_t i = 0; i < ranges_.size(); i++)
     {
-        double ref_floor = ranges[i].first;
-        double ref_ceiling = ranges[i].second;
+        double ref_floor = ranges_[i].first;
+        double ref_ceiling = ranges_[i].second;
         double ret_floor = indv.ranges()[i].first;
         double ret_ceiling = indv.ranges()[i].second;
         EXPECT_DOUBLE_EQ(ref_floor, ret_floor);
@@ -35,9 +49,9 @@ TEST(IndividualTest, ConstructionWithMultiVals)
     }
 
     // Check original precisions.
-    for (size_t i = 0; i < precisions.size(); i++)
+    for (size_t i = 0; i < precisions_.size(); i++)
     {
-        double ref_prec = precisions[i];
+        double ref_prec = precisions_[i];
         double ret_prec = indv.originalPrecisions()[i];
         EXPECT_DOUBLE_EQ(ref_prec, ret_prec);
     }
@@ -83,12 +97,12 @@ TEST(IndividualTest, ConstructionWithMultiVals)
     // }}}
 }
 
-TEST(IndividualTest, ConstructionWithSingleVal)
+TEST_F(IndividualTest, ConstructionWithSingleVal)
 {
     // {{{
     // Construct an individual.
     std::vector<double> solution {1.0, 2.0};
-    std::vector<std::pair<double, double>> ref_ranges {{0.0, 2.0}, {0.0, 2.0}};
+    gasol::RangePairs ref_ranges {{0.0, 2.0}, {0.0, 2.0}};
     std::vector<double> ref_precisions {0.001, 0.001};
     std::pair<double, double> range {0.0, 2.0};
     double precision = 0.001;

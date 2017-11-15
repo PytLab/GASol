@@ -43,6 +43,11 @@ namespace gasol {
                    const std::pair<double, double> & range,
                    const double precision);
 
+        /*! \brief Flip a bit in chromsome bit sequence.
+         */
+        void flipGeneBit(int index)
+        { chromsome_.at(index) = !chromsome_.at(index); }
+
         /*! \brief Query function for original solution candidate.
          */
         const std::vector<double> & oriSolution() const
