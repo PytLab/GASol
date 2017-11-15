@@ -139,6 +139,7 @@ TEST_F(IndividualTest, ConstructionWithSingleVal)
 
 TEST_F(IndividualTest, GeneBitFlip)
 {
+    // {{{
     gasol::Individual indv(solution_, ranges_, precisions_);
     std::vector<bool> chromsome_before = {1, 1, 1, 1, 0};
     for (size_t i = 0; i < chromsome_before.size(); i++)
@@ -153,6 +154,7 @@ TEST_F(IndividualTest, GeneBitFlip)
     {
         EXPECT_EQ(chromsome_after[i], indv.chromsome()[i]);
     }
+    // }}}
 }
 
 } // namespace
