@@ -101,20 +101,28 @@ namespace gasol {
     private:
         /// Original solution candidate provided by user.
         std::vector<double> ori_solution_;
+
         /// Solution candidate vector.
         std::vector<double> solution_;
+
         /// Ranges for all components in solution vector.
         RangePairs ranges_;
+
         /// Original discrete precisions for all components in solution.
         std::vector<double> ori_precisions_;
+
         /// Actual dsicrete precisions used in GA engine.
         std::vector<double> precisions_;
+
         /// Lengths of gene fragments.
         std::vector<int> gene_lengths_;
+
         /// The break points in gene sequence.
         GeneBreakPts gene_break_pts_;
+
         /// The chromsome contains gene sequence.
         std::vector<bool> chromsome_;
+
         /// Flag for precision loss.
         bool precision_loss_ = false;
 
