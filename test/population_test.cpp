@@ -54,5 +54,16 @@ TEST_F(PopulationTest, Construction)
     EXPECT_DOUBLE_EQ(population.fitness()(indv3_), 1.0);
 }
 
+TEST_F(PopulationTest, BestIndividual)
+{
+    std::vector<gasol::Individual> indvs {indv1_, indv2_, indv3_};
+    gasol::Population population(indvs, pfit_);
+
+    const gasol::Individual & best_indv = population.bestIndv();
+
+    EXPECT_DOUBLE_EQ(best_indv.solution()[0], indv1_.solution()[0]);
+    EXPECT_DOUBLE_EQ(best_indv.solution()[1], indv1_.solution()[1]);
+}
+
 } // namespace
 

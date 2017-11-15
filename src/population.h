@@ -27,7 +27,7 @@ namespace gasol {
 
         /*! \brief Return reference of the individual with max fitness value.
          */
-        const Individual & bestIndv() const;
+        const Individual & bestIndv();
 
         /*! \brief Query function for population size.
          */

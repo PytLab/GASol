@@ -25,16 +25,21 @@ namespace gasol {
 
     //--------------------------------------------------------------------------
     //
-    /*
-    const Individual & Population::bestIndv() const
+    const Individual & Population::bestIndv()
     {
-        // Comparation function.
-        auto comp = [this](Individual *indv_ptr1, Individual *indv_ptr2)
-                    { return (*pfit_)(*indv_ptr1) < (*pfit_)(*indv_ptr2); };
+        if (best_indv_ == nullptr)
+        {
+            // Comparation function.
+            auto comp = [this](Individual *indv_ptr1, Individual *indv_ptr2)
+                        { return (*pfit_)(*indv_ptr1) < (*pfit_)(*indv_ptr2); };
 
-        auto best = std::max_element(indv_ptrs_.begin(), indv_ptrs_.end(), comp);
+            best_indv_ = *std::max_element(indv_ptrs_.begin(),
+                                           indv_ptrs_.end(),
+                                           comp);
+        }
+
+        return *best_indv_;
     }
-    */
 
 }  // namespace gasol
 
