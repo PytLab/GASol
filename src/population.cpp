@@ -65,9 +65,9 @@ namespace gasol {
     {
         std::vector<double> all_fits;
 
-        for (auto indv_it = indvs_.begin(); indv_it != indvs_.end(); indv_it++)
+        for (auto it = indv_ptrs_.begin(); it != indv_ptrs_.end(); it++)
         {
-            all_fits.push_back((*pfit_)(*indv_it));
+            all_fits.push_back((*pfit_)(**it));
         }
 
         return all_fits;

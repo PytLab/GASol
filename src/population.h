@@ -52,6 +52,8 @@ namespace gasol {
         const Individual & worstIndv();
 
         /*! \brief Get all fitness values of individuals in population.
+         *  NOTE: The order of returned fitness values is the same with that
+         *        of individuals pointer in population.
          */
         std::vector<double> allFitVals() const;
 
