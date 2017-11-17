@@ -14,7 +14,7 @@ namespace gasol {
     class Individual;
 
     // Type alias of a fitness function.
-    using Fitness = double (Individual &);
+    using Fitness = double (const Individual &);
 
     /*! \brief Class for population iterated in genetic algorithm engine.
      */
@@ -22,12 +22,18 @@ namespace gasol {
 
     public:
         /*! \brief Constructor for population with multiple individuals.
+         *  \param individuals: List of individuals in population.
+         *  \param pfit: Pointer of fitness function.
          */
         Population(const std::vector<Individual> & individuals, Fitness *pfit);
 
         /*! \brief Return reference of the individual with max fitness value.
          */
         const Individual & bestIndv();
+
+        /*! \brief Get all fitness values of individuals in population.
+         */
+        std::vector<double> allFitVals() const;
 
         /*! \brief Query function for population size.
          */

@@ -41,5 +41,19 @@ namespace gasol {
         return *best_indv_;
     }
 
+    //--------------------------------------------------------------------------
+    //
+    std::vector<double> Population::allFitVals() const
+    {
+        std::vector<double> all_fits;
+
+        for (auto indv_it = indvs_.begin(); indv_it != indvs_.end(); indv_it++)
+        {
+            all_fits.push_back((*pfit_)(*indv_it));
+        }
+
+        return all_fits;
+    }
+
 }  // namespace gasol
 

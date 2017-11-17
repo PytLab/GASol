@@ -7,7 +7,7 @@
 
 namespace {
 
-double fitness(gasol::Individual & indv)
+double fitness(const gasol::Individual & indv)
 { return indv.solution()[0]*indv.solution()[1]; }
 
 class PopulationTest : public ::testing::Test {
@@ -63,6 +63,19 @@ TEST_F(PopulationTest, BestIndividual)
 
     EXPECT_DOUBLE_EQ(best_indv.solution()[0], indv1_.solution()[0]);
     EXPECT_DOUBLE_EQ(best_indv.solution()[1], indv1_.solution()[1]);
+}
+
+TEST_F(PopulationTest, AllFitValues)
+{
+    std::vector<gasol::Individual> indvs {indv1_, indv2_, indv3_};
+    gasol::Population population(indvs, pfit_);
+
+    std::vector<double> && all_fits = population.allFitVals();
+    std::vector<double> ref_all_fits = {1.75, 1.3125, 1.0};
+    for (size_t i = 0; i < all_fits.size(); i++)
+    {
+        EXPECT_DOUBLE_EQ(ref_all_fits[i], all_fits[i]);
+    }
 }
 
 } // namespace
