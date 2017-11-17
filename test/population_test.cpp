@@ -78,5 +78,16 @@ TEST_F(PopulationTest, AllFitValues)
     }
 }
 
+TEST_F(PopulationTest, WorstIndividual)
+{
+    std::vector<gasol::Individual> indvs {indv1_, indv2_, indv3_};
+    gasol::Population population(indvs, pfit_);
+
+    const gasol::Individual & worst_indv = population.worstIndv();
+
+    EXPECT_DOUBLE_EQ(worst_indv.solution()[0], indv3_.solution()[0]);
+    EXPECT_DOUBLE_EQ(worst_indv.solution()[1], indv3_.solution()[1]);
+}
+
 } // namespace
 

@@ -27,14 +27,6 @@ namespace gasol {
          */
         Population(const std::vector<Individual> & individuals, Fitness *pfit);
 
-        /*! \brief Return reference of the individual with max fitness value.
-         */
-        const Individual & bestIndv();
-
-        /*! \brief Get all fitness values of individuals in population.
-         */
-        std::vector<double> allFitVals() const;
-
         /*! \brief Query function for population size.
          */
         int size() const { return size_; }
@@ -51,6 +43,18 @@ namespace gasol {
          */
         std::vector<Individual *> & indvPtrs() { return indv_ptrs_; }
 
+        /*! \brief Return reference of the individual with max fitness value.
+         */
+        const Individual & bestIndv();
+
+        /*! \brief Query function for the individual with min fitness value.
+         */
+        const Individual & worstIndv();
+
+        /*! \brief Get all fitness values of individuals in population.
+         */
+        std::vector<double> allFitVals() const;
+
     private:
 
         /// Individuals in population.
@@ -65,8 +69,11 @@ namespace gasol {
         /// Population size.
         size_t size_;
 
-        /// Pointer of best individual.
+        /// Pointer of the best individual.
         const Individual *best_indv_ = nullptr;
+
+        /// Pointer of the worst individual.
+        const Individual *worst_indv_ = nullptr;
     };
 }
 

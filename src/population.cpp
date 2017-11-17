@@ -29,7 +29,7 @@ namespace gasol {
     {
         if (best_indv_ == nullptr)
         {
-            // Comparation function.
+            // comparation function.
             auto comp = [this](Individual *indv_ptr1, Individual *indv_ptr2)
                         { return (*pfit_)(*indv_ptr1) < (*pfit_)(*indv_ptr2); };
 
@@ -39,6 +39,24 @@ namespace gasol {
         }
 
         return *best_indv_;
+    }
+
+    //--------------------------------------------------------------------------
+    //
+    const Individual & Population::worstIndv()
+    {
+        if (worst_indv_ == nullptr)
+        {
+            // Comparation function.
+            auto comp = [this](Individual *indv_ptr1, Individual *indv_ptr2)
+                        { return (*pfit_)(*indv_ptr1) < (*pfit_)(*indv_ptr2); };
+
+            worst_indv_ = *std::min_element(indv_ptrs_.begin(),
+                                            indv_ptrs_.end(),
+                                            comp);
+        }
+
+        return *worst_indv_;
     }
 
     //--------------------------------------------------------------------------
