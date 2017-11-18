@@ -39,8 +39,10 @@ namespace gasol {
         /*! \brief Constructor for roulette wheel selection operator.
          *  \param seed: Seed for random number generator.
          */
-        RouletteWheelSelection(bool random_seed=true, int seed=0)
-            : random_seed_(random_seed), seed_(seed) {}
+        RouletteWheelSelection(bool random_seed=true, int seed=0) :
+            random_seed_(random_seed),
+            seed_(seed)
+        {}
 
         /*! \brief Selection operation.
          */
