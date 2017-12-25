@@ -24,8 +24,8 @@ namespace gasol {
         _adjustPrecisions();
         // Create chromsome.
         _createChromsome();
-        // Update solution candiate.
-        _updateSolution();
+        // Update solution candiate according to chromsome.
+        updateSolution();
     }
 
     //--------------------------------------------------------------------------
@@ -162,7 +162,7 @@ namespace gasol {
 
     //--------------------------------------------------------------------------
     //
-    void Individual::_updateSolution()
+    void Individual::updateSolution()
     {
         for (size_t i = 0; i < solution_.size(); i++)
         {

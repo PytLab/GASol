@@ -48,6 +48,10 @@ namespace gasol {
         void flipGeneBit(int index)
         { chromsome_.at(index) = !chromsome_.at(index); }
 
+        /*! \brief Helper funciton to update solution vector according to chromsome.
+         */
+        void updateSolution();
+
         /*! \brief Query function for original solution candidate.
          */
         const std::vector<double> & oriSolution() const
@@ -139,10 +143,6 @@ namespace gasol {
         /*! \brief Helper function to create chromsome.
          */
         void _createChromsome();
-
-        /*! \brief Helper funciton to update solution vector according to chromsome.
-         */
-        void _updateSolution();
 
         /*! \brief Function to convert a decimal number to binary one.
          *  \param decimal: The decimal number to be converted.
