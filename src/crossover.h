@@ -21,7 +21,8 @@ namespace gasol {
     public:
         /* \brief Constructor.
          * \param pc: Crossover probability.
-         * \param seed: 
+         * \param seed: Random seed for the crossover operator. If seed < 0, then
+         *              the time() would be used to generate a seed.
          */
         CrossoverBase(double pc, int seed = -1) : pc_(pc)
         {
