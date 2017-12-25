@@ -5,7 +5,6 @@
 #include "population.h"
 #include "selection.h"
 
-#include <ctime>
 #include <random>
 #include <algorithm>
 
