@@ -54,6 +54,10 @@ TEST_F(SelectionTest, RouletteWheelSelection)
     const gasol::Individual *mother2 = parents2.second;
     EXPECT_DOUBLE_EQ(fitness(*father2), 1.75);
     EXPECT_DOUBLE_EQ(fitness(*mother2), 1.3125);
+
+    // Select with no seed provided.
+    gasol::RouletteWheelSelection selection2(-1);
+    selection2.select(population);
 }
 
 } // namespace
