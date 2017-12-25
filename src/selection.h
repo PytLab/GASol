@@ -5,6 +5,7 @@
 #define __SELECTION__
 
 #include <utility>
+#include <ctime>
 
 namespace gasol {
 
@@ -22,7 +23,17 @@ namespace gasol {
     public:
         /* \brief Constructor.
          */
-        SelectionBase(int seed = -1) : seed_(seed) {}
+        SelectionBase(int seed = -1)
+        {
+            if (seed < 0)
+            {
+                seed_ = time(NULL);
+            }
+            else
+            {
+                seed_ = seed;
+            }
+        }
 
         /*! \brief Pure virtual function for selection operation on populaiton.
          *  \param population: Population from which parents are choosen.
