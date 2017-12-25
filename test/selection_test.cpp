@@ -41,7 +41,7 @@ TEST_F(SelectionTest, RouletteWheelSelection)
     gasol::Population population(indvs, pfit_);
 
     // Select parents.
-    gasol::RouletteWheelSelection selection(false, 0);
+    gasol::RouletteWheelSelection selection(0);
     gasol::Parents parents1 = selection.select(population);
     const gasol::Individual *father1 = parents1.first;
     const gasol::Individual *mother1 = parents1.second;

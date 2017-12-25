@@ -5,6 +5,7 @@
 #include "population.h"
 #include "selection.h"
 
+#include <ctime>
 #include <random>
 #include <algorithm>
 
@@ -28,10 +29,9 @@ namespace gasol {
         }
 
         // Create a random number generator.
-        if (random_seed_)
+        if (seed_ < 0)
         {
-            std::random_device rd;
-            seed_ = rd();
+            seed_ = time(NULL);
         }
         std::mt19937 gen(seed_);
         std::uniform_real_distribution<double> dis(0.0, accum);
