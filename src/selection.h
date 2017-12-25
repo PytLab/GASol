@@ -18,16 +18,26 @@ namespace gasol {
     /*! \brief Abstract base class for selection operator.
      */
     class SelectionBase {
+
     public:
+        /* \brief Constructor.
+         */
+        SelectionBase(int seed = -1) : seed_(seed) {}
+
         /*! \brief Pure virtual function for selection operation on populaiton.
          *  \param population: Population from which parents are choosen.
          */
         virtual Parents select(Population & population) = 0;
 
+        /* \brief Query function for random seed.
+         */
+        int seed() const { return seed_; }
+
     protected:
 
     private:
-
+        /// Random number seed.
+        int seed_;
     };
 
     
@@ -40,16 +50,13 @@ namespace gasol {
          *  \param seed: Seed for random number generator, if seed < 0, then time
          *               function would be used to generate seed.
          */
-        RouletteWheelSelection(int seed=0) : seed_(seed) {}
+        RouletteWheelSelection(int seed=-1) : SelectionBase(seed) {}
 
         /*! \brief Selection operation.
          */
         Parents select(Population & population);
 
     private:
-
-        /// Random number seed.
-        int seed_;
     };
 }
 

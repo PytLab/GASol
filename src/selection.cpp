@@ -29,11 +29,12 @@ namespace gasol {
         }
 
         // Create a random number generator.
-        if (seed_ < 0)
+        int sd = seed();
+        if (sd < 0)
         {
-            seed_ = time(NULL);
+            sd = time(NULL);
         }
-        std::mt19937 gen(seed_);
+        std::mt19937 gen(sd);
         std::uniform_real_distribution<double> dis(0.0, accum);
 
         // Select parents.
