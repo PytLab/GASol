@@ -17,14 +17,14 @@ namespace gasol {
 
     /*! \brief Abstract base class for crossover operator.
      */
-    class CrossoverBase {
+    class Crossover {
     public:
         /* \brief Constructor.
          * \param pc: Crossover probability.
          * \param seed: Random seed for the crossover operator. If seed < 0, then
          *              the time() would be used to generate a seed.
          */
-        CrossoverBase(double pc, int seed = -1) : pc_(pc)
+        Crossover(double pc, int seed = -1) : pc_(pc)
         {
             if (seed < 0)
             {
@@ -63,7 +63,7 @@ namespace gasol {
     /* \brief Crossover operator implementation using uniform crossover algorithm.
      *        https://en.wikipedia.org/wiki/Crossover_(genetic_algorithm)
      */
-    class UniformCrossover : public CrossoverBase {
+    class UniformCrossover : public Crossover {
 
     public:
         /* \brief Constructor for uniform crossover operator.
@@ -71,7 +71,7 @@ namespace gasol {
          * \param pe: The gene exchange probability.
          */
         UniformCrossover(double pc, double pe = 0.5, int seed = -1) :
-            CrossoverBase(pc, seed),
+            Crossover(pc, seed),
             pe_(pe)
         {}
 

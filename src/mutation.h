@@ -13,7 +13,7 @@ namespace gasol {
 
     /*! brief Abstract base class for mutation operator.
      */
-    class MutationBase {
+    class Mutation {
 
     public:
         /*! \brief Constructor.
@@ -21,7 +21,7 @@ namespace gasol {
          *  \param seed: Random seed for the crossover operator. If seed < 0, then
          *               the time() would be used to generate a seed.
          */
-        MutationBase(double pm, int seed = -1) : pm_(pm)
+        Mutation(double pm, int seed = -1) : pm_(pm)
         {
             if (seed < 0)
             {
@@ -59,12 +59,12 @@ namespace gasol {
 
     /*! \brief Mutation operator with flip bit mutation implementation.
      */
-    class FlipBitMutation : public MutationBase {
+    class FlipBitMutation : public Mutation {
 
     public:
         /*! \brief Constructor.
          */
-        FlipBitMutation(double pm, int seed = -1) : MutationBase(pm, seed) {}
+        FlipBitMutation(double pm, int seed = -1) : Mutation(pm, seed) {}
 
         /*! \brief Mutate an individual with flip bit method.
          */

@@ -18,12 +18,12 @@ namespace gasol {
 
     /*! \brief Abstract base class for selection operator.
      */
-    class SelectionBase {
+    class Selection {
 
     public:
         /* \brief Constructor.
          */
-        SelectionBase(int seed = -1)
+        Selection(int seed = -1)
         {
             if (seed < 0)
             {
@@ -54,14 +54,14 @@ namespace gasol {
     
     /*! \brief Selection operator implementation using roulette wheel.
      */
-    class RouletteWheelSelection : public SelectionBase {
+    class RouletteWheelSelection : public Selection {
 
     public:
         /*! \brief Constructor for roulette wheel selection operator.
          *  \param seed: Seed for random number generator, if seed < 0, then time
          *               function would be used to generate seed.
          */
-        RouletteWheelSelection(int seed=-1) : SelectionBase(seed) {}
+        RouletteWheelSelection(int seed=-1) : Selection(seed) {}
 
         /*! \brief Selection operation.
          */
