@@ -139,7 +139,11 @@ TEST_F(IndividualTest, ConstructionWithSingleVal)
 
 TEST_F(IndividualTest, ConstructionWithRandomSolution)
 {
-    gasol::Individual indv(ranges_, precisions_);
+    gasol::Individual indv1(ranges_, precisions_);
+
+    std::pair<double, double> range {0.0, 1.0};
+    double precision = 0.01;
+    gasol::Individual indv2(10, range, precision);
 }
 
 TEST_F(IndividualTest, GeneBitFlip)

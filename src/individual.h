@@ -41,7 +41,7 @@ namespace gasol {
          */
         Individual(std::vector<double> & solution,
                    const std::pair<double, double> & range,
-                   const double precision);
+                   double precision);
 
         /*! \brief Constructor without solution provided explicitly (solution is
          *         generated randomly).
@@ -51,6 +51,17 @@ namespace gasol {
          */
         Individual(const RangePairs & ranges,
                    const std::vector<double> & precisions);
+
+        /*! \brief Another constructor without solution provided explicitly
+         *         (solution is generated randomly).
+         *  \param ndim: The dimension number of solution vector.
+         *  \param range: The value range for all components in solution candidate vector.
+         *  \param precision: The discrete precision for all components in solution
+         *                    candidate vector
+         */
+        Individual(size_t ndim,
+                   const std::pair<double, double> & range,
+                   double precision);
 
         /*! \brief Flip a bit in chromsome bit sequence.
          */

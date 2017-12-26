@@ -34,7 +34,7 @@ namespace gasol {
     //
     Individual::Individual(std::vector<double> & solution,
                            const std::pair<double, double> & range,
-                           const double precision) :
+                           double precision) :
         Individual(solution,
                    RangePairs(solution.size(), range),
                    std::vector<double>(solution.size(), precision))
@@ -66,6 +66,15 @@ namespace gasol {
         // Update solution candiate according to chromsome.
         updateSolution();
     }
+
+    //--------------------------------------------------------------------------
+    //
+    Individual::Individual(size_t ndim,
+                           const std::pair<double, double> & range,
+                           double precision) :
+        Individual(RangePairs(ndim, range),
+                   std::vector<double>(ndim, precision))
+    {}
 
     //--------------------------------------------------------------------------
     //
