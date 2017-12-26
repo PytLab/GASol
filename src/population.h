@@ -25,7 +25,11 @@ namespace gasol {
          *  \param individuals: List of individuals in population.
          *  \param pfit: Pointer of fitness function.
          */
-        Population(const std::vector<Individual> & individuals, Fitness *pfit);
+        Population(std::vector<Individual> & individuals, Fitness *pfit);
+
+        /*! Move assignment operator
+         */
+        Population & operator=(Population && rhs) noexcept;
 
         /*! \brief Query function for population size.
          */
@@ -60,7 +64,7 @@ namespace gasol {
     private:
 
         /// Individuals in population.
-        std::vector<Individual> indvs_;
+        std::vector<Individual> & indvs_;
 
         /// Pointers pointing to all individuals.
         std::vector<Individual *> indv_ptrs_;

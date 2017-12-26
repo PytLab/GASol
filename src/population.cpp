@@ -11,7 +11,7 @@ namespace gasol {
 
     //--------------------------------------------------------------------------
     //
-    Population::Population(const std::vector<Individual> & individuals, Fitness *pfit) :
+    Population::Population(std::vector<Individual> & individuals, Fitness *pfit) :
         indvs_(individuals),
         pfit_(pfit),
         size_(indvs_.size())
@@ -21,6 +21,29 @@ namespace gasol {
         {
             indv_ptrs_.push_back(&indv);
         }
+    }
+
+    //--------------------------------------------------------------------------
+    //
+    Population & Population::operator=(Population && rhs) noexcept
+    {
+        if (this != &rhs)
+        {
+            indvs_ = rhs.indvs_;
+            indv_ptrs_ = rhs.indv_ptrs_;
+            pfit_ = rhs.pfit_;
+            size_ = rhs.size_;
+            best_indv_ = rhs.best_indv_;
+            worst_indv_ = rhs.worst_indv_;
+
+            // Make rhs destructable.
+            rhs.pfit_ = nullptr;
+            rhs.best_indv_ = rhs.worst_indv_ = nullptr;
+            indvs_.clear();
+            indv_ptrs_.clear();
+        }
+
+        return *this;
     }
 
     //--------------------------------------------------------------------------

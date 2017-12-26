@@ -54,6 +54,17 @@ TEST_F(PopulationTest, Construction)
     EXPECT_DOUBLE_EQ(population.fitness()(indv3_), 1.0);
 }
 
+TEST_F(PopulationTest, MoveAssignment)
+{
+    std::vector<gasol::Individual> indvs1 {indv1_, indv2_, indv3_};
+    gasol::Population p1(indvs1, pfit_);
+    EXPECT_EQ(p1.size(), 3);
+
+    std::vector<gasol::Individual> indvs2 {indv1_, indv2_};
+    p1 = gasol::Population(indvs2, pfit_);
+    EXPECT_EQ(p1.size(), 2);
+}
+
 TEST_F(PopulationTest, BestIndividual)
 {
     std::vector<gasol::Individual> indvs {indv1_, indv2_, indv3_};
