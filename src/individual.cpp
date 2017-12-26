@@ -3,8 +3,6 @@
  */
 
 #include <cmath>
-#include <ctime>
-#include <iostream>
 #include <random>
 
 #include "individual.h"
@@ -50,7 +48,8 @@ namespace gasol {
         ori_precisions_(precisions)
     {
         // Generate original solution randomly.
-        std::mt19937 gen(time(NULL));
+        std::random_device rd;
+        std::mt19937 gen(rd());
         for (size_t i = 0; i < ori_solution_.size(); i++)
         {
             std::uniform_real_distribution<double> dis(ranges[i].first, ranges[i].second);

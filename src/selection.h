@@ -5,7 +5,7 @@
 #define __SELECTION__
 
 #include <utility>
-#include <ctime>
+#include <random>
 
 namespace gasol {
 
@@ -27,7 +27,8 @@ namespace gasol {
         {
             if (seed < 0)
             {
-                seed_ = time(NULL);
+                std::random_device rd;
+                seed_ = rd();
             }
             else
             {
@@ -58,7 +59,7 @@ namespace gasol {
 
     public:
         /*! \brief Constructor for roulette wheel selection operator.
-         *  \param seed: Seed for random number generator, if seed < 0, then time
+         *  \param seed: Seed for random number generator, if seed < 0, then random
          *               function would be used to generate seed.
          */
         RouletteWheelSelection(int seed=-1) : Selection(seed) {}

@@ -4,7 +4,7 @@
 #ifndef __MUTATION__
 #define __MUTATION__
 
-#include <ctime>
+#include <random>
 
 namespace gasol {
 
@@ -19,13 +19,14 @@ namespace gasol {
         /*! \brief Constructor.
          *  \param pm: The mutation probability.
          *  \param seed: Random seed for the crossover operator. If seed < 0, then
-         *               the time() would be used to generate a seed.
+         *               the random function would be used to generate a seed.
          */
         Mutation(double pm, int seed = -1) : pm_(pm)
         {
             if (seed < 0)
             {
-                seed_ = time(NULL);
+                std::random_device rd;
+                seed_ = rd();
             }
             else
             {

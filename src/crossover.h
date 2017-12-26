@@ -5,7 +5,7 @@
 #define __CROSSOVER__
 
 #include <utility>
-#include <ctime>
+#include <random>
 
 namespace gasol {
 
@@ -22,13 +22,14 @@ namespace gasol {
         /* \brief Constructor.
          * \param pc: Crossover probability.
          * \param seed: Random seed for the crossover operator. If seed < 0, then
-         *              the time() would be used to generate a seed.
+         *              the random function would be used to generate a seed.
          */
         Crossover(double pc, int seed = -1) : pc_(pc)
         {
             if (seed < 0)
             {
-                seed_ = time(NULL);
+                std::random_device rd;
+                seed_ = rd();
             }
             else
             {
