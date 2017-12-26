@@ -43,6 +43,15 @@ namespace gasol {
                    const std::pair<double, double> & range,
                    const double precision);
 
+        /*! \brief Constructor without solution provided explicitly (solution is
+         *         generated randomly).
+         *  \param ranges: The value ranges for all components in solution candidate vector.
+         *  \param precisions: The discrete precisions for all components in solution
+         *                     candidate vector
+         */
+        Individual(const RangePairs & ranges,
+                   const std::vector<double> & precisions);
+
         /*! \brief Flip a bit in chromsome bit sequence.
          */
         void flipGeneBit(int index)

@@ -3,7 +3,9 @@
  */
 
 #include <cmath>
+#include <ctime>
 #include <iostream>
+#include <random>
 
 #include "individual.h"
 
@@ -37,6 +39,33 @@ namespace gasol {
                    RangePairs(solution.size(), range),
                    std::vector<double>(solution.size(), precision))
     {}
+
+    //--------------------------------------------------------------------------
+    //
+    Individual::Individual(const RangePairs & ranges,
+                           const std::vector<double> & precisions) :
+        ori_solution_(ranges.size(), 0.0),
+        solution_(ranges.size(), 0.0),
+        ranges_(ranges),
+        ori_precisions_(precisions)
+    {
+        // Generate original solution randomly.
+        std::mt19937 gen(time(NULL));
+        for (size_t i = 0; i < ori_solution_.size(); i++)
+        {
+            std::uniform_real_distribution<double> dis(ranges[i].first, ranges[i].second);
+            ori_solution_[i] = dis(gen);
+        }
+
+        // Calculate lengths of all gene fragments.
+        _calcGeneLengths();
+        // Get actual precisions which is used in GA engine.
+        _adjustPrecisions();
+        // Create chromsome.
+        _createChromsome();
+        // Update solution candiate according to chromsome.
+        updateSolution();
+    }
 
     //--------------------------------------------------------------------------
     //

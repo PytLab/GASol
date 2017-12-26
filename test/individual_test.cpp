@@ -137,6 +137,11 @@ TEST_F(IndividualTest, ConstructionWithSingleVal)
     // }}}
 }
 
+TEST_F(IndividualTest, ConstructionWithRandomSolution)
+{
+    gasol::Individual indv(ranges_, precisions_);
+}
+
 TEST_F(IndividualTest, GeneBitFlip)
 {
     // {{{
