@@ -20,3 +20,6 @@ add_subdirectory(src)
 # GASol test dir.
 add_subdirectory(test)
 
+# GASol run dir.
+add_subdirectory(run)
+
