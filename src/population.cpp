@@ -28,12 +28,16 @@ namespace gasol {
     //
     void Population::updateIndividuals(const std::vector<Individual> & indvs)
     {
+        // Update individuals.
         auto it1 = indvs_.begin();
         auto it2 = indvs.begin();
         for ( ; it1 != indvs_.cend(); it1++, it2++)
         {
             *it1 = *it2;
         }
+
+        // Reset best and worst individual pointers.
+        worst_indv_ = best_indv_ = nullptr;
     }
 
     //--------------------------------------------------------------------------
