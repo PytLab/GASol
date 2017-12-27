@@ -32,12 +32,13 @@ namespace gasol {
         std::uniform_real_distribution<double> dis(0.0, accum);
 
         // Select parents.
-        int father_idx = std::upper_bound(wheel.cbegin(),
-                                          wheel.cend(),
-                                          dis(gen)) - wheel.cbegin();
-        int mother_idx = std::upper_bound(wheel.cbegin(),
-                                          wheel.cend(),
-                                          dis(gen)) - wheel.cbegin();
+        int father_idx = (std::upper_bound(wheel.cbegin(),
+                                           wheel.cend(),
+                                           dis(gen)) - wheel.cbegin()) % wheel.size();
+
+        int mother_idx = (std::upper_bound(wheel.cbegin(),
+                                           wheel.cend(),
+                                           dis(gen)) - wheel.cbegin()) % wheel.size();
 
         return Parents(population.indvPtrs()[father_idx],
                        population.indvPtrs()[mother_idx]);
