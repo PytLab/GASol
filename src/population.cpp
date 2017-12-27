@@ -6,6 +6,7 @@
 #include "individual.h"
 
 #include <algorithm>
+#include <utility>
 
 namespace gasol {
 
@@ -25,25 +26,14 @@ namespace gasol {
 
     //--------------------------------------------------------------------------
     //
-    Population & Population::operator=(Population && rhs) noexcept
+    void Population::updateIndividuals(const std::vector<Individual> & indvs)
     {
-        if (this != &rhs)
+        auto it1 = indvs_.begin();
+        auto it2 = indvs.begin();
+        for ( ; it1 != indvs_.cend(); it1++, it2++)
         {
-            indvs_ = rhs.indvs_;
-            indv_ptrs_ = rhs.indv_ptrs_;
-            pfit_ = rhs.pfit_;
-            size_ = rhs.size_;
-            best_indv_ = rhs.best_indv_;
-            worst_indv_ = rhs.worst_indv_;
-
-            // Make rhs destructable.
-            rhs.pfit_ = nullptr;
-            rhs.best_indv_ = rhs.worst_indv_ = nullptr;
-            indvs_.clear();
-            indv_ptrs_.clear();
+            *it1 = *it2;
         }
-
-        return *this;
     }
 
     //--------------------------------------------------------------------------

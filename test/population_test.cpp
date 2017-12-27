@@ -54,15 +54,27 @@ TEST_F(PopulationTest, Construction)
     EXPECT_DOUBLE_EQ(population.fitness()(indv3_), 1.0);
 }
 
-TEST_F(PopulationTest, MoveAssignment)
+TEST_F(PopulationTest, UpdateIndividuals)
 {
-    std::vector<gasol::Individual> indvs1 {indv1_, indv2_, indv3_};
-    gasol::Population p1(indvs1, pfit_);
-    EXPECT_EQ(p1.size(), 3);
+    std::vector<gasol::Individual> indvs {indv1_, indv2_};
+    gasol::Population population(indvs, pfit_);
 
-    std::vector<gasol::Individual> indvs2 {indv1_, indv2_};
-    p1 = gasol::Population(indvs2, pfit_);
-    EXPECT_EQ(p1.size(), 2);
+    for (size_t i = 0; i < indv1_.oriSolution().size(); i++)
+    {
+        EXPECT_DOUBLE_EQ(population.indvPtrs()[0]->oriSolution()[i],
+                         indv1_.oriSolution()[i]);
+        EXPECT_DOUBLE_EQ(population.indvPtrs()[1]->oriSolution()[i],
+                         indv2_.oriSolution()[i]);
+    }
+    std::vector<gasol::Individual> indvs2 {indv3_, indv1_};
+    population.updateIndividuals(indvs2);
+    for (size_t i = 0; i < indv1_.oriSolution().size(); i++)
+    {
+        EXPECT_DOUBLE_EQ(population.indvPtrs()[0]->oriSolution()[i],
+                         indv3_.oriSolution()[i]);
+        EXPECT_DOUBLE_EQ(population.indvPtrs()[1]->oriSolution()[i],
+                         indv1_.oriSolution()[i]);
+    }
 }
 
 TEST_F(PopulationTest, BestIndividual)
