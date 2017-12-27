@@ -27,6 +27,13 @@ namespace gasol {
          */
         Population(std::vector<Individual> & individuals, Fitness *pfit);
 
+        /*! \brief Constructor with an individual template proviede.
+         */
+        Population(const Individual & indv_template, size_t size, Fitness *pfit);
+
+        /*! \brief Update individuals in population.
+         *  \param indvs: New individuals.
+         */
         void updateIndividuals(const std::vector<Individual> & indvs);
 
         /*! \brief Query function for population size.

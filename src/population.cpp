@@ -26,6 +26,20 @@ namespace gasol {
 
     //--------------------------------------------------------------------------
     //
+    Population::Population(const Individual & indv_template, size_t size, Fitness *pfit)
+    {
+        for (size_t i = 0; i < size; i++)
+        {
+            Individual indv(indv_template.ranges(), indv_template.precisions());
+            indvs_.push_back(indv);
+            indv_ptrs_.push_back(&indv);
+        }
+        size_ = size;
+        pfit_ = pfit;
+    }
+
+    //--------------------------------------------------------------------------
+    //
     void Population::updateIndividuals(const std::vector<Individual> & indvs)
     {
         // Update individuals.

@@ -54,6 +54,16 @@ TEST_F(PopulationTest, Construction)
     EXPECT_DOUBLE_EQ(population.fitness()(indv3_), 1.0);
 }
 
+TEST_F(PopulationTest, ConstructionWithTemplate)
+{
+    gasol::Population population(indv1_, 10, pfit_);
+
+    EXPECT_EQ(population.indvs().size(), 10);
+    EXPECT_EQ(population.indvPtrs().size(), 10);
+    EXPECT_EQ(population.size(), 10);
+    EXPECT_EQ(population.fitness(), pfit_);
+}
+
 TEST_F(PopulationTest, UpdateIndividuals)
 {
     std::vector<gasol::Individual> indvs {indv1_, indv2_};
