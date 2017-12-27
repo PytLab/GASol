@@ -15,22 +15,16 @@ cd build
 cmake ..
 make
 ```
-#### Build test
-``` shell
-make unittest
-```
+
 #### Run test
 ``` shell
+make unittest
 ./unittest/unittest
 ```
-## Run example
+#### Run example
 
-#### Build example
 ``` shell
 make example
-```
-#### Run example
-``` shell
 ./example/example
 ```
 
