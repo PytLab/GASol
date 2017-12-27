@@ -41,11 +41,9 @@ make example
 ``` cpp
 #include "engine.h"
 
-#include <iostream>
 #include <cmath>
 #include <vector>
 #include <utility>
-#include <ctime>
 
 using namespace gasol;
 
@@ -81,17 +79,8 @@ int main()
     // Create engine.
     Engine engine(population, selection, crossover, mutation);
 
-    // Run 100 generations.
-    clock_t start = clock();
+    // Run 1000 generations.
     engine.run(1000);
-    clock_t end = clock();
-
-    const Individual & best_indv = engine.population().bestIndv();
-    double best_fitness = engine.population().fitness()(best_indv);
-    double solution = best_indv.solution()[0];
-
-    std::cout << "Solution: " << solution << ", fitness: " << best_fitness << std::endl;
-    std::cout << "Time used: " << static_cast<double>(end - start)/CLOCKS_PER_SEC << "s" << std::endl;
 
     return 0;
 }
