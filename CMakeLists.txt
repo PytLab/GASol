@@ -18,8 +18,8 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -Wall -Wextra -Werror -pedantic")
 add_subdirectory(src)
 
 # GASol test dir.
-add_subdirectory(test)
+add_subdirectory(unittest)
 
 # GASol run dir.
-add_subdirectory(run)
+add_subdirectory(example)
 

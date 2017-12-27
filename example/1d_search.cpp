@@ -45,7 +45,7 @@ int main()
 
     // Run 100 generations.
     clock_t start = clock();
-    engine.run(100);
+    engine.run(1000);
     clock_t end = clock();
 
     const Individual & best_indv = engine.population().bestIndv();

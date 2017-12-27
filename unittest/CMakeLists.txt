@@ -17,6 +17,6 @@ link_directories(${CMAKE_CURRENT_BINARY_DIR}/googletest/googletest)
 
 # Compile unittest.
 file(GLOB TEST_SRCS *.cpp)
-add_executable(test.x EXCLUDE_FROM_ALL ${TEST_SRCS})
-target_link_libraries(test.x GASol gtest)
+add_executable(unittest EXCLUDE_FROM_ALL ${TEST_SRCS})
+target_link_libraries(unittest GASol gtest)
 
