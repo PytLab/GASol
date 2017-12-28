@@ -32,6 +32,7 @@
 *.app
 
 /build
+/parallel_build
 
 # Vim temp files
 *.swp
