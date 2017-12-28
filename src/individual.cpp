@@ -4,6 +4,7 @@
 
 #include <cmath>
 #include <random>
+#include <cstddef>
 
 #include "individual.h"
 

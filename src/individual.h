@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <utility>
+#include <cstddef>
 
 namespace gasol {
 
