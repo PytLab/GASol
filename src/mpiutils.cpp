@@ -64,41 +64,43 @@ void MPIUtils::finalize()
 
 // -----------------------------------------------------------------------------
 //
-int MPIUtils::myRank(const MPI::Intracomm & comm)
+int MPIUtils::myRank(MPI::Intracomm & comm)
 {
 #if RUNMPI == true
     return comm.Get_rank();
 #else
-    return 0;
+    return comm = 0;
 #endif
 }
 
 
 // -----------------------------------------------------------------------------
 //
-int MPIUtils::size(const MPI::Intracomm & comm)
+int MPIUtils::size(MPI::Intracomm & comm)
 {
 #if RUNMPI == true
     return comm.Get_size();
 #else
-    return 1;
+    return comm = 1;
 #endif
 }
 
 
 // -----------------------------------------------------------------------------
 //
-void MPIUtils::barrier(const MPI::Intracomm & comm)
+void MPIUtils::barrier(MPI::Intracomm & comm)
 {
 #if RUNMPI == true
     MPI_Barrier(comm);
+#else
+    comm = 0;
 #endif
 }
 
 
 // -----------------------------------------------------------------------------
 //
-std::pair<int, int> MPIUtils::splitSize(int n, const MPI::Intracomm & comm)
+std::pair<int, int> MPIUtils::splitSize(int n, MPI::Intracomm & comm)
 {
     int start = 0, end = n;
 
@@ -118,10 +120,12 @@ std::pair<int, int> MPIUtils::splitSize(int n, const MPI::Intracomm & comm)
         start += chunk_sizes[i];
     }
     end = start + chunk_sizes[rank];
+#else
+    comm = 0;
 #endif
 
     return std::pair<int, int>(start, end);
 }
 
-};
+}
 

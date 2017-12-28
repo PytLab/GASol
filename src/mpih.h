@@ -16,10 +16,12 @@
 #include <mpi.h>
 #else
 // Redefine namespace of MPI.
-namespace MPI
-{
-    typedef int Intracomm;
-    static int COMM_WORLD;
+namespace gasol {
+    namespace MPI
+    {
+        typedef int Intracomm;
+        static int COMM_WORLD;
+    }
 }
 #endif // RUNMPI
 
