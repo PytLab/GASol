@@ -18,7 +18,9 @@ void MPIUtils::init()
     }
 
 #if RUNMPI == true
-    MPI::Init();
+    int argc = 0;
+    char **argv;
+    MPI_Init(&argc, &argv);
 #endif
 }
 
@@ -28,7 +30,8 @@ void MPIUtils::init()
 bool MPIUtils::finalized()
 {
 #if RUNMPI == true
-    return MPI::Is_finalized();
+    int flag = 0;
+    return MPI_Finalized(&flag);
 #else
     return false;
 #endif
@@ -40,7 +43,8 @@ bool MPIUtils::finalized()
 bool MPIUtils::initialized()
 {
 #if RUNMPI == true
-    return MPI::Is_initialized();
+    int flag = 0;
+    return MPI_Initialized(&flag);
 #else
     return false;
 #endif
@@ -57,17 +61,19 @@ void MPIUtils::finalize()
     }
 
 #if RUNMPI == true
-    MPI::Finalize();
+    MPI_Finalize();
 #endif
 }
 
 
 // -----------------------------------------------------------------------------
 //
-int MPIUtils::myRank(MPI::Intracomm & comm)
+int MPIUtils::myRank(MPI_Comm comm)
 {
 #if RUNMPI == true
-    return comm.Get_rank();
+    int rank;
+    MPI_Comm_rank(comm, &rank);
+    return rank;
 #else
     return comm = 0;
 #endif
@@ -76,10 +82,12 @@ int MPIUtils::myRank(MPI::Intracomm & comm)
 
 // -----------------------------------------------------------------------------
 //
-int MPIUtils::size(MPI::Intracomm & comm)
+int MPIUtils::size(MPI_Comm comm)
 {
 #if RUNMPI == true
-    return comm.Get_size();
+    int size;
+    MPI_Comm_size(comm, &size);
+    return size;
 #else
     return comm = 1;
 #endif
@@ -88,7 +96,7 @@ int MPIUtils::size(MPI::Intracomm & comm)
 
 // -----------------------------------------------------------------------------
 //
-void MPIUtils::barrier(MPI::Intracomm & comm)
+void MPIUtils::barrier(MPI_Comm comm)
 {
 #if RUNMPI == true
     MPI_Barrier(comm);
@@ -100,7 +108,7 @@ void MPIUtils::barrier(MPI::Intracomm & comm)
 
 // -----------------------------------------------------------------------------
 //
-std::pair<int, int> MPIUtils::splitSize(int n, MPI::Intracomm & comm)
+std::pair<int, int> MPIUtils::splitSize(int n, MPI_Comm comm)
 {
     int start = 0, end = n;
 
