@@ -37,3 +37,5 @@
 # Vim temp files
 *.swp
 
+mpiflag.h
+
