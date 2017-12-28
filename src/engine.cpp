@@ -2,6 +2,7 @@
  *  \brief Implementations for genetic algorithm engine.
  */
 
+#include "mpiutils.h"
 #include "engine.h"
 
 namespace gasol {
@@ -15,10 +16,13 @@ namespace gasol {
 
         for (int g = 0; g < ng; g++)
         {
+            int start = 0, end = population_.size()/2;
             #pragma omp parallel for schedule(static)
-            for (int i = 0; i < population_.size() - 1; i++)
+            for (int idx = start; idx < end; idx++)
             {
-                int j = i + 1;
+                // Indices for individuals in new individual list.
+                int i = 2*idx, j = 2*idx + 1;
+
                 // Select father and mother.
                 Parents parents = selection_.select(population_);
 
