@@ -15,14 +15,8 @@
 #if RUNMPI == true
 #include <mpi.h>
 #else
-// Redefine namespace of MPI.
-namespace gasol {
-    namespace MPI
-    {
-        typedef int Intracomm;
-        static int COMM_WORLD;
-    }
-}
+using MPI_Comm = int;
+#define MPI_COMM_WORLD 0;
 #endif // RUNMPI
 
 #endif // __MPIH__
