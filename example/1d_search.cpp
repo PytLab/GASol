@@ -21,12 +21,12 @@ double fitness(const Individual & indv)
 int main()
 {
     // Variable range.
-    std::vector<std::pair<double, double>> ranges {{0.0, 10.0}};
+    std::vector<std::pair<double, double>> ranges {{0.0, 1000.0}};
     // Decrete precision.
-    std::vector<double> precisions {0.001};
+    std::vector<double> precisions {0.000001};
 
     // Create population.
-    size_t size = 50;
+    size_t size = 1000;
     std::vector<Individual> individuals;
     for (size_t i = 0; i < size; i++)
     {
@@ -44,16 +44,16 @@ int main()
     Engine engine(population, selection, crossover, mutation);
 
     // Run 100 generations.
-    clock_t start = clock();
+    time_t start = time(NULL);
     engine.run(1000);
-    clock_t end = clock();
+    time_t end = time(NULL);
 
     const Individual & best_indv = engine.population().bestIndv();
     double best_fitness = engine.population().fitness()(best_indv);
     double solution = best_indv.solution()[0];
 
     std::cout << "Solution: " << solution << ", fitness: " << best_fitness << std::endl;
-    std::cout << "Time used: " << static_cast<double>(end - start)/CLOCKS_PER_SEC << "s" << std::endl;
+    std::cout << "Time used: " << end - start << "s" << std::endl;
 
     return 0;
 }
