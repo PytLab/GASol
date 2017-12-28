@@ -13,10 +13,12 @@ namespace gasol {
         for (int g = 0; g < ng; g++)
         {
             // Individuals in next generation population.
-            std::vector<Individual> individuals;
+            std::vector<Individual> individuals(population_.size(), population_.indvs()[0]);
 
-            for (int i = 0; i < population_.size()/2; i++)
+#pragma omp parallel for schedule(static)
+            for (int i = 0; i < population_.size() - 1; i++)
             {
+                int j = i + 1;
                 // Select father and mother.
                 Parents parents = selection_.select(population_);
 
@@ -28,8 +30,8 @@ namespace gasol {
                 mutation_.mutate(children.second);
 
                 // Add to individuals.
-                individuals.push_back(children.first);
-                individuals.push_back(children.second);
+                individuals[i] = children.first;
+                individuals[j] = children.second;
             }
 
             // Reserve the best indv.
