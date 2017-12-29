@@ -1,8 +1,8 @@
 /*! \brief GASol example for searching the maxima of f(x) = x + 10sin(5x) + 7cos(4x)
  */
 
+#include "mpiutils.h"
 #include "engine.h"
-#include "mpih.h"
 
 #include <iostream>
 #include <cmath>
@@ -19,11 +19,13 @@ double fitness(const Individual & indv)
     return x + 10*std::sin(5*x) + 7*std::cos(4*x);
 }
 
-int main(int argc, char **argv)
+int main()
 {
-#if RUNMPI == true
-    MPI_Init(&argc, &argv);
-#endif
+    MPIUtils::init();
+    if (MPIUtils::isMaster())
+    {
+        std::cout << "Process number: " << MPIUtils::size() << std::endl;
+    }
     // Variable range.
     std::vector<std::pair<double, double>> ranges {{0.0, 1000.0}};
     // Decrete precision.
@@ -59,9 +61,7 @@ int main(int argc, char **argv)
     std::cout << "Solution: " << solution << ", fitness: " << best_fitness << std::endl;
     std::cout << "Time used: " << end - start << "s" << std::endl;
 
-#if RUNMPI == true
-    MPI_Finalize();
-#endif
+    MPIUtils::finalize();
 
     return 0;
 }
