@@ -16,7 +16,7 @@
 #include <mpi.h>
 #else
 using MPI_Comm = int;
-#define MPI_COMM_WORLD 0;
+#define MPI_COMM_WORLD 0
 #endif // RUNMPI
 
 #endif // __MPIH__
