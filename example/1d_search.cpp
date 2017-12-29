@@ -58,8 +58,11 @@ int main()
     double best_fitness = engine.population().fitness()(best_indv);
     double solution = best_indv.solution()[0];
 
-    std::cout << "Solution: " << solution << ", fitness: " << best_fitness << std::endl;
-    std::cout << "Time used: " << end - start << "s" << std::endl;
+    if (MPIUtils::isMaster())
+    {
+        std::cout << "Solution: " << solution << ", fitness: " << best_fitness << std::endl;
+        std::cout << "Time used: " << end - start << "s" << std::endl;
+    }
 
     MPIUtils::finalize();
 
