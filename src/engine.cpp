@@ -9,16 +9,47 @@ namespace gasol {
 
     //--------------------------------------------------------------------------
     //
+    double ** Engine::getArray(int nrows, int ncols)
+    {
+        double * data = new double[nrows*ncols]();
+        double ** array = new double*[nrows];
+
+        for (int i = 0; i < nrows; i++)
+        {
+            array[i] = &(data[ncols*i]);
+        }
+
+        return array;
+    }
+
+    //--------------------------------------------------------------------------
+    //
     void Engine::run(int ng)
     {
+#if RUNMPI == true
+        MPIUtils::init();
+#endif
         // Individuals collector in genetic algorithm generation.
-        std::vector<Individual> individuals(population_.size(), population_.indvs()[0]);
+        const Individual & indv_template = population_.indvs()[0];
+        std::vector<Individual> individuals(population_.size(), indv_template);
 
         for (int g = 0; g < ng; g++)
         {
-            int start = 0, end = population_.size()/2;
-            #pragma omp parallel for schedule(static)
-            for (int idx = start; idx < end; idx++)
+#if RUNMPI == true
+            // Initialize solution component vector for MPI passing.
+            int nrows = population_.size();
+            int ncols = indv_template.solution().size();
+            double **local_solutions = getArray(nrows, ncols);
+            double **global_solutions = getArray(nrows, ncols);
+
+            // Endpoints for population size spliting.
+            std::pair<int, int> && endpts = MPIUtils::splitOverProcesses(population_.size()/2,
+                                                                         MPI_COMM_WORLD);
+#else
+            std::pair<int, int> endpts(0, population_.size()/2);
+#endif
+#pragma omp parallel for schedule(static)
+            for (int idx = endpts.first; idx < endpts.second; idx++)
             {
                 // Indices for individuals in new individual list.
                 int i = 2*idx, j = 2*idx + 1;
@@ -37,7 +68,46 @@ namespace gasol {
                 individuals[i] = children.first;
                 individuals[j] = children.second;
             }
+#if RUNMPI == true
+            // Fill the local solutions.
+            int start = 2*endpts.first;
+            int end = 2*endpts.second + 1;
+            for (int i = start; i < end; i++)
+            {
+                for (int j = 0; j < ncols; j++)
+                {
+                    local_solutions[i][j] = individuals[i].solution()[j];
+                }
+            }
 
+            // Merge solutions from all processes.
+            MPIUtils::joinOverProcesses(local_solutions,
+                                        global_solutions,
+                                        nrows, ncols,
+                                        MPI_COMM_WORLD);
+
+            // Initialize new individuals from gathered solutions.
+            std::vector<double> solution(ncols, 0.0);
+            for (int i = 0; i < nrows; i++)
+            {
+                for (int j = 0; j < ncols; j++)
+                {
+                    solution[j] = global_solutions[i][j];
+                }
+                individuals[i] = Individual(solution,
+                                            indv_template.ranges(),
+                                            indv_template.precisions());
+            }
+
+            // Free memories.
+            delete [] *local_solutions;
+            delete [] local_solutions;
+            delete [] *global_solutions;
+            delete [] global_solutions;
+
+            // Finalize MPI env.
+            MPIUtils::finalize();
+#endif
             // Reserve the best indv.
             individuals[0] = population_.bestIndv();
 

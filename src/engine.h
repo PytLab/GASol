@@ -73,6 +73,9 @@ namespace gasol {
         /// Mutation operator.
         Mutation & mutation_;
 
+        /// Private helper function to create a 2D array.
+        double ** getArray(int nrows, int ncols);
+
     };
 }
 

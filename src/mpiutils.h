@@ -48,13 +48,23 @@ struct MPIUtils {
     static void barrier(MPI_Comm comm = MPI_COMM_WORLD);
 
     /*! \brief Returns true if the calling process is the master.
+     *  \param comm: The communicator to use.
      */
     static bool isMaster(MPI_Comm comm = MPI_COMM_WORLD)
     { return (myRank(comm) == 0); }
 
-    /*! \brief Split a size to different chunks.
+    /*! \brief Split a size to different chunks over all processes in communicator.
+     *  \param size: Size to be splitted.
+     *  \param comm: The communicator to use.
      */
-    static std::pair<int, int> splitSize(int size, MPI_Comm comm = MPI_COMM_WORLD);
+    static std::pair<int, int> splitOverProcesses(int size,
+                                                  MPI_Comm comm = MPI_COMM_WORLD);
+
+    static void joinOverProcesses(double **send,
+                                  double **recv,
+                                  int nrows,
+                                  int ncols,
+                                  MPI_Comm comm = MPI_COMM_WORLD);
 
 };
 

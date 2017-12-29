@@ -108,7 +108,7 @@ void MPIUtils::barrier(MPI_Comm comm)
 
 // -----------------------------------------------------------------------------
 //
-std::pair<int, int> MPIUtils::splitSize(int n, MPI_Comm comm)
+std::pair<int, int> MPIUtils::splitOverProcesses(int n, MPI_Comm comm)
 {
     int start = 0, end = n;
 
@@ -133,6 +133,23 @@ std::pair<int, int> MPIUtils::splitSize(int n, MPI_Comm comm)
 #endif
 
     return std::pair<int, int>(start, end);
+}
+
+void MPIUtils::joinOverProcesses(double **send,
+                                 double **recv,
+                                 int nrows,
+                                 int ncols,
+                                 MPI_Comm comm)
+{
+#if RUNMPI == true
+    MPI_Allreduce(*send, *recv, nrows*ncols, MPI_DOUBLE, MPI_SUM, comm);
+#else
+    comm = 0;
+    for (int i = 0; i < nrows*ncols; i++)
+    {
+        (*recv)[i] = (*send)[i];
+    }
+#endif
 }
 
 }
