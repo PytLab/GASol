@@ -33,6 +33,7 @@
 
 /build
 /parallel_build
+/serial_build
 
 # Vim temp files
 *.swp
