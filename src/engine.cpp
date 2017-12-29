@@ -5,6 +5,8 @@
 #include "mpiutils.h"
 #include "engine.h"
 
+#include <iostream>
+
 namespace gasol {
 
     //--------------------------------------------------------------------------
@@ -26,9 +28,6 @@ namespace gasol {
     //
     void Engine::run(int ng)
     {
-#if RUNMPI == true
-        MPIUtils::init();
-#endif
         // Individuals collector in genetic algorithm generation.
         const Individual & indv_template = population_.indvs()[0];
         std::vector<Individual> individuals(population_.size(), indv_template);
@@ -71,7 +70,7 @@ namespace gasol {
 #if RUNMPI == true
             // Fill the local solutions.
             int start = 2*endpts.first;
-            int end = 2*endpts.second + 1;
+            int end = 2*endpts.second;
             for (int i = start; i < end; i++)
             {
                 for (int j = 0; j < ncols; j++)
@@ -104,9 +103,6 @@ namespace gasol {
             delete [] local_solutions;
             delete [] *global_solutions;
             delete [] global_solutions;
-
-            // Finalize MPI env.
-            MPIUtils::finalize();
 #endif
             // Reserve the best indv.
             individuals[0] = population_.bestIndv();

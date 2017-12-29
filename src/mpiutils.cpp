@@ -12,7 +12,7 @@ namespace gasol {
 //
 void MPIUtils::init()
 {
-   if (initialized())
+    if (initialized())
     {
         return;
     }

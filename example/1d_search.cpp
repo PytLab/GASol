@@ -2,6 +2,7 @@
  */
 
 #include "engine.h"
+#include "mpih.h"
 
 #include <iostream>
 #include <cmath>
@@ -18,8 +19,11 @@ double fitness(const Individual & indv)
     return x + 10*std::sin(5*x) + 7*std::cos(4*x);
 }
 
-int main()
+int main(int argc, char **argv)
 {
+#if RUNMPI == true
+    MPI_Init(&argc, &argv);
+#endif
     // Variable range.
     std::vector<std::pair<double, double>> ranges {{0.0, 1000.0}};
     // Decrete precision.
@@ -54,6 +58,10 @@ int main()
 
     std::cout << "Solution: " << solution << ", fitness: " << best_fitness << std::endl;
     std::cout << "Time used: " << end - start << "s" << std::endl;
+
+#if RUNMPI == true
+    MPI_Finalize();
+#endif
 
     return 0;
 }
