@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 3.0)
 project(GASol)
 
 # Enable verbose output.
-set(CMAKE_VERBOSE_MAKEFILE ON)
+#set(CMAKE_VERBOSE_MAKEFILE ON)
 
 # Use C++11 standard.
 set(CMAKE_CXX_STANDARD 11)
