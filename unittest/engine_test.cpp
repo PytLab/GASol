@@ -2,6 +2,7 @@
  */ 
 
 #include "engine.h"
+#include "mpiutils.h"
 #include "gtest/gtest.h"
 
 #include <cmath>
@@ -46,7 +47,9 @@ TEST_F(EngineTest, Run)
     gasol::FlipBitMutation mutation(0.1);
 
     gasol::Engine engine(population, selection, crossover, mutation);
+    gasol::MPIUtils::init();
     engine.run(100);
+    gasol::MPIUtils::finalize();
 
 //    std::cout << "best fitness: "
 //              << engine.population().fitness()(engine.population().bestIndv())
