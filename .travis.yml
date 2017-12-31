@@ -1,0 +1,25 @@
+dist: trusty
+sudo: required
+language:
+    - cpp
+compiler:
+    - gcc
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - gcc-6
+      - g++-6
+      - cmake
+
+script:
+  - ln -s /usr/bin/gcc-6 /usr/bin/gcc
+  - ln -s /usr/bin/g++-6 /usr/bin/g++
+  - export CC=/usr/bin/gcc
+  - export CXX=/usr/bin/g++
+  - gcc -v && g++ -v && cmake --version
+
+  - mkdir build && cd build
+  - cmake .. && make
+  - make unittest && ./unittest/unittest
