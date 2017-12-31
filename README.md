@@ -13,17 +13,17 @@ cd build
 #### Build GASol
 
 - Serial version
-    ```` shell
-    cmake ..
-    make
-    ```
+``` shell
+cmake ..
+make
+```
 
 - MPI parallel version
-    ```
-    export CXX=/<mpi_path>/mpicxx
-    cmake -DMPI=true ..
-    make
-    ```
+```
+export CXX=/<mpi_path>/mpicxx
+cmake -DMPI=true ..
+make
+```
 
 #### Run test
 ``` shell
