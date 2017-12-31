@@ -11,17 +11,19 @@ mkdir build
 cd build
 ```
 #### Build GASol
-``` shell
-cmake ..
-make
-```
 
-For the MPI parallel version
-```
-export CXX=/<mpi_path>/mpicxx
-cmake -DMPI=true ..
-make
-```
+- Serial version
+    ```` shell
+    cmake ..
+    make
+    ```
+
+- MPI parallel version
+    ```
+    export CXX=/<mpi_path>/mpicxx
+    cmake -DMPI=true ..
+    make
+    ```
 
 #### Run test
 ``` shell
