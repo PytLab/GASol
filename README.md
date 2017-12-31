@@ -16,6 +16,13 @@ cmake ..
 make
 ```
 
+For the MPI parallel version
+```
+export CXX=/<mpi_path>/mpicxx
+cmake -DMPI=true ..
+make
+```
+
 #### Run test
 ``` shell
 make unittest
