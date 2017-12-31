@@ -20,6 +20,17 @@ else()
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -Wall -Wextra -Werror -pedantic")
 endif()
 
+# MPI.
+if (MPI)
+    message(STATUS "-- This is a parallel MPI build --")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${MPI_CXX_COMPILER_FLAGS}")
+    include_directories(${MPI_CXX_INCLUDE_DIRS})
+    file(WRITE ${PROJECT_SOURCE_DIR}/src/mpiflag.h "#define RUNMPI true\n")
+else()
+    message(STATUS "-- This is a serial build --")
+    file(WRITE ${PROJECT_SOURCE_DIR}/src/mpiflag.h "#define RUNMPI false\n")
+endif()
+
 # GASol source dir.
 add_subdirectory(src)
 
@@ -28,16 +39,4 @@ add_subdirectory(unittest)
 
 # GASol run dir.
 add_subdirectory(example)
-
-# Find MPI.
-find_package(MPI)
-if (MPI_CXX_FOUND)
-    set(CMAKE_CXX_COMPILER ${MPI_CXX_COMPILER})
-    message(STATUS "Use MPI compiler ${MPI_CXX_COMPILER}")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${MPI_CXX_COMPILER_FLAGS}")
-    include_directories(${MPI_CXX_INCLUDE_DIRS})
-    file(WRITE ${PROJECT_SOURCE_DIR}/src/mpiflag.h "#define RUNMPI true\n")
-else()
-    file(WRITE ${PROJECT_SOURCE_DIR}/src/mpiflag.h "#define RUNMPI false\n")
-endif()
 
