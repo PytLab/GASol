@@ -14,8 +14,6 @@ addons:
       - cmake
 
 script:
-  - ln -s /usr/bin/gcc-6 /usr/bin/gcc
-  - ln -s /usr/bin/g++-6 /usr/bin/g++
   - export CC=/usr/bin/gcc
   - export CXX=/usr/bin/g++
   - gcc -v && g++ -v && cmake --version
