@@ -2,7 +2,8 @@
 
 A general **G**enetic **A**lgorithm **Sol**ver in C++ 
 
-![](https://api.travis-ci.org/PytLab/GASol.svg?branch=master)
+[![Build Status](https://api.travis-ci.org/PytLab/GASol.svg?branch=master)](https://travis-ci.org/PytLab/GASol)
+[![GitHub license](https://img.shields.io/github/license/PytLab/GASol.svg)](https://github.com/PytLab/GASol/blob/master/LICENSE)
 
 ## Build
 
@@ -51,6 +52,7 @@ make example
 #### Find the maxima of f(x) = x + 10sin(5x) + 7cos(4x)
 
 ``` cpp
+#include "mpiutils.h"
 #include "engine.h"
 
 #include <cmath>
@@ -68,6 +70,8 @@ double fitness(const Individual & indv)
 
 int main()
 {
+    // Initialize MPI environment.
+    MPIUtils::init();
     // Variable range.
     std::vector<std::pair<double, double>> ranges {{0.0, 10.0}};
     // Decrete precision.
@@ -93,6 +97,9 @@ int main()
 
     // Run 1000 generations.
     engine.run(1000);
+
+    // Finalize MPI env.
+    MPIUtils::finalize();
 
     return 0;
 }
