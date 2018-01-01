@@ -21,3 +21,4 @@ script:
   - mkdir build && cd build
   - cmake .. && make
   - make unittest && ./unittest/unittest
+  - make example && ./example/example

@@ -2,11 +2,20 @@
 
 A general **G**enetic **A**lgorithm **Sol**ver in C++ 
 
+![](https://api.travis-ci.org/PytLab/GASol.svg?branch=master)
+
 ## Build
+
+#### Clone GASol
+
+``` shell
+git clone --recusive git@github.com:PytLab/GASol.git
+```
 
 #### Create dir for building.
 
 ``` shell
+cd GASol
 mkdir build
 cd build
 ```
