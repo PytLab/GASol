@@ -20,6 +20,10 @@ else()
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -Wall -Wextra -Werror -pedantic")
 endif()
 
+if (COV)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage")
+endif()
+
 # MPI.
 if (MPI)
     message(STATUS "-- This is a parallel MPI build --")
