@@ -13,6 +13,8 @@ addons:
       - g++-6
       - cmake
       - lcov
+notifications:
+  email: false
 
 script:
   - export CC=/usr/bin/gcc
