@@ -101,7 +101,7 @@ void MPIUtils::barrier(MPI_Comm comm)
 #if RUNMPI == true
     MPI_Barrier(comm);
 #else
-    comm = 0;
+    comm += 0;
 #endif
 }
 
@@ -129,7 +129,7 @@ std::pair<int, int> MPIUtils::splitOverProcesses(int n, MPI_Comm comm)
     }
     end = start + chunk_sizes[rank];
 #else
-    comm = 0;
+    comm += 0;
 #endif
 
     return std::pair<int, int>(start, end);
@@ -144,7 +144,7 @@ void MPIUtils::joinOverProcesses(double **send,
 #if RUNMPI == true
     MPI_Allreduce(*send, *recv, nrows*ncols, MPI_DOUBLE, MPI_SUM, comm);
 #else
-    comm = 0;
+    comm += 0;
     for (int i = 0; i < nrows*ncols; i++)
     {
         (*recv)[i] = (*send)[i];
