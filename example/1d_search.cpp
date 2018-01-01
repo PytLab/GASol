@@ -27,9 +27,9 @@ int main()
         std::cout << "Process number: " << MPIUtils::size() << std::endl;
     }
     // Variable range.
-    std::vector<std::pair<double, double>> ranges {{0.0, 1000.0}};
+    std::vector<std::pair<double, double>> ranges {{0.0, 100.0}};
     // Decrete precision.
-    std::vector<double> precisions {0.000001};
+    std::vector<double> precisions {0.001};
 
     // Create population.
     size_t size = 1000;
@@ -51,7 +51,7 @@ int main()
 
     // Run 100 generations.
     time_t start = time(NULL);
-    engine.run(1000);
+    engine.run(100);
     time_t end = time(NULL);
 
     const Individual & best_indv = engine.population().bestIndv();
