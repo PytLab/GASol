@@ -12,6 +12,7 @@ addons:
       - gcc-6
       - g++-6
       - cmake
+      - lcov
 
 script:
   - export CC=/usr/bin/gcc
@@ -19,6 +20,16 @@ script:
   - gcc -v && g++ -v && cmake --version
 
   - mkdir build && cd build
-  - cmake .. && make
+  - cmake -DCOV=true .. && make
   - make unittest && ./unittest/unittest
   - make example && ./example/example
+
+after_success:
+  # Create coverage report.
+  cd ./unittest/CMakeFiles/unittest.dir
+  - lcov --directory . --capture --output-file coverage.info
+  - lcov --remove coverage.info '/usr/*' --output-file coverage.info
+  - lcov --list coverage.info
+  # Upload report to CodeCov
+  - bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
+
