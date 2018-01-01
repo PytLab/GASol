@@ -3,6 +3,7 @@
 A general **G**enetic **A**lgorithm **Sol**ver in C++ 
 
 [![Build Status](https://api.travis-ci.org/PytLab/GASol.svg?branch=master)](https://travis-ci.org/PytLab/GASol)
+[![codecov](https://codecov.io/gh/PytLab/GASol/branch/master/graph/badge.svg)](https://codecov.io/gh/PytLab/GASol)
 
 ## Build
 
