@@ -11,7 +11,7 @@ A general **G**enetic **A**lgorithm **Sol**ver in C++
 #### Clone GASol
 
 ``` shell
-git clone --recusive git@github.com:PytLab/GASol.git
+git clone --recursive git@github.com:PytLab/GASol.git
 ```
 
 #### Create dir for building.
