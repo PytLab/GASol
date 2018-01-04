@@ -11,17 +11,17 @@ namespace gasol {
 
     //--------------------------------------------------------------------------
     //
-    double ** Engine::getArray(int nrows, int ncols)
+    double ** Engine::__getSolutionMatrix(int nrows, int ncols)
     {
         double * data = new double[nrows*ncols]();
-        double ** array = new double*[nrows];
+        double ** matrix = new double*[nrows];
 
         for (int i = 0; i < nrows; i++)
         {
-            array[i] = &(data[ncols*i]);
+            matrix[i] = &(data[ncols*i]);
         }
 
-        return array;
+        return matrix;
     }
 
     //--------------------------------------------------------------------------
@@ -38,8 +38,8 @@ namespace gasol {
             // Initialize solution component vector for MPI passing.
             int nrows = population_.size();
             int ncols = indv_template.solution().size();
-            double **local_solutions = getArray(nrows, ncols);
-            double **global_solutions = getArray(nrows, ncols);
+            double **local_solutions = __getSolutionMatrix(nrows, ncols);
+            double **global_solutions = __getSolutionMatrix(nrows, ncols);
 
             // Endpoints for population size spliting.
             std::pair<int, int> && endpts = MPIUtils::splitOverProcesses(population_.size()/2,

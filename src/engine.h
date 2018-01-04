@@ -73,8 +73,9 @@ namespace gasol {
         /// Mutation operator.
         Mutation & mutation_;
 
-        /// Private helper function to create a 2D array.
-        double ** getArray(int nrows, int ncols);
+        /// Private helper function to create a 2D solution matrix which is passed
+        /// within MPI communicator.
+        double ** __getSolutionMatrix(int nrows, int ncols);
 
     };
 }
