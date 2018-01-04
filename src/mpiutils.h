@@ -60,6 +60,13 @@ struct MPIUtils {
     static std::pair<int, int> splitOverProcesses(int size,
                                                   MPI_Comm comm = MPI_COMM_WORLD);
 
+    /*! \brief Join all solutions together from all processes in communicator.
+     *  \param send: local data in each process.
+     *  \param recv: global data in each process.
+     *  \param nrows: column number, population size.
+     *  \param ncols: row number, solution dimension.
+     *  \param comm: The communicator to use.
+     */
     static void joinOverProcesses(double **send,
                                   double **recv,
                                   int nrows,

@@ -33,7 +33,7 @@ bool MPIUtils::finalized()
     int flag = 0;
     return MPI_Finalized(&flag);
 #else
-    return false;
+    return true;
 #endif
 }
 
