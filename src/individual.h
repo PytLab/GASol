@@ -154,16 +154,16 @@ namespace gasol {
         /*! \brief Helper function to calculate gene fragment lengths for all
          *         components in solution.
          */
-        void _calcGeneLengths();
+        void __calcGeneLengths();
 
         /*! \brief Helper function to adjust discrete precisions according to
          *         user-provided precisions and ranges.
          */
-        void _adjustPrecisions();
+        void __adjustPrecisions();
 
         /*! \brief Helper function to create chromsome.
          */
-        void _createChromsome();
+        void __createChromsome();
 
         /*! \brief Function to convert a decimal number to binary one.
          *  \param decimal: The decimal number to be converted.
@@ -171,10 +171,10 @@ namespace gasol {
          *  \param precision: Precision for this component.
          *  \param length: The length of the gene fragement.
          */
-        std::vector<bool> _decToBin(double decimal,
-                                    double floor,
-                                    double precision,
-                                    int length) const;
+        std::vector<bool> __decToBin(double decimal,
+                                     double floor,
+                                     double precision,
+                                     int length) const;
 
         /*! \brief Function to convert a binary number to decimal number.
          *  \param binary: The binary number to be converted.
@@ -182,10 +182,10 @@ namespace gasol {
          *  \param precision: Precision for this component.
          *  \param length: The length of the gene fragement.
          */
-        double _binToDec(const std::vector<bool> & binary,
-                         double floor,
-                         double precision,
-                         int length) const;
+        double __binToDec(const std::vector<bool> & binary,
+                          double floor,
+                          double precision,
+                          int length) const;
     };
 
 }

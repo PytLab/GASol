@@ -20,11 +20,11 @@ namespace gasol {
         ori_precisions_(precisions)
     {
         // Calculate lengths of all gene fragments.
-        _calcGeneLengths();
+        __calcGeneLengths();
         // Get actual precisions which is used in GA engine.
-        _adjustPrecisions();
+        __adjustPrecisions();
         // Create chromsome.
-        _createChromsome();
+        __createChromsome();
         // Update solution candiate according to chromsome.
         updateSolution();
     }
@@ -58,11 +58,11 @@ namespace gasol {
         }
 
         // Calculate lengths of all gene fragments.
-        _calcGeneLengths();
+        __calcGeneLengths();
         // Get actual precisions which is used in GA engine.
-        _adjustPrecisions();
+        __adjustPrecisions();
         // Create chromsome.
-        _createChromsome();
+        __createChromsome();
         // Update solution candiate according to chromsome.
         updateSolution();
     }
@@ -78,7 +78,7 @@ namespace gasol {
 
     //--------------------------------------------------------------------------
     //
-    void Individual::_calcGeneLengths()
+    void Individual::__calcGeneLengths()
     {
         // Function to check an integer is the power of 2.
         auto power_of_2 = [](int n) { return !(n & (n - 1)); };
@@ -121,7 +121,7 @@ namespace gasol {
 
     //--------------------------------------------------------------------------
     //
-    void Individual::_adjustPrecisions()
+    void Individual::__adjustPrecisions()
     {
         if (precision_loss_)
         {
@@ -144,7 +144,7 @@ namespace gasol {
 
     //--------------------------------------------------------------------------
     //
-    void Individual::_createChromsome()
+    void Individual::__createChromsome()
     {
         for (size_t i = 0; i < ori_solution_.size(); i++)
         {
@@ -153,7 +153,7 @@ namespace gasol {
             double floor = ranges_[i].first;
             double precision = precisions_[i];
             int length = gene_lengths_[i];
-            std::vector<bool> && gene_fragment = _decToBin(decimal, floor, precision, length);
+            std::vector<bool> && gene_fragment = __decToBin(decimal, floor, precision, length);
 
             // Append new gene fragment to chromsome.
             chromsome_.reserve(chromsome_.size() + gene_fragment.size());
@@ -165,10 +165,10 @@ namespace gasol {
 
     //--------------------------------------------------------------------------
     //
-    std::vector<bool> Individual::_decToBin(double decimal,
-                                            double floor,
-                                            double precision,
-                                            int length) const
+    std::vector<bool> Individual::__decToBin(double decimal,
+                                             double floor,
+                                             double precision,
+                                             int length) const
     {
         std::vector<bool> binary;
 
@@ -183,10 +183,10 @@ namespace gasol {
 
     //--------------------------------------------------------------------------
     //
-    double Individual::_binToDec(const std::vector<bool> & binary,
-                                 double floor,
-                                 double precision,
-                                 int length) const
+    double Individual::__binToDec(const std::vector<bool> & binary,
+                                  double floor,
+                                  double precision,
+                                  int length) const
     {
         int ncount = 0;
         for (int i = 0; i < length; i++)
@@ -218,7 +218,7 @@ namespace gasol {
             double precision = precisions_[i];
             int length = gene_lengths_[i];
 
-            double component = _binToDec(gene_fragment, floor, precision, length);
+            double component = __binToDec(gene_fragment, floor, precision, length);
 
             // Update.
             solution_[i] = component;
